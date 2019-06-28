@@ -56,7 +56,7 @@ public class CommuneControllerTest {
 				"        ],\n" +
 				"        \"codeDepartement\": \"80\",\n" +
 				"        \"codeRegion\": \"32\",\n" +
-				"        \"_score\": 0.6809910623997033\n" +
+				"        \"_score\": 0.6809630821196418\n" +
 				"    }\n" +
 				"]"))
 		.andExpect(authenticated().withUsername("user"));

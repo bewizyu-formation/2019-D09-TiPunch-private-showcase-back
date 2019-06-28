@@ -6,11 +6,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.bewizyu</groupId>
-	<artifactId>project-private-showcase-back</artifactId>
+	<artifactId>project-private-showcase-back-tipunch-d09</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>Private ShowCase Web API</name>
+	<name>[TiPunch] 2019 D09 Private ShowCase Web API</name>
 
 	<!-- Inherit defaults from Spring Boot -->
 	<parent>
