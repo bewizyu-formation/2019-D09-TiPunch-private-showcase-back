@@ -1,0 +1,128 @@
+{
+	"info": {
+		"_postman_id": "6bf63111-23cb-4005-a93c-a2882e06657f",
+		"name": "PrivateShowCase User",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1c483da9-683f-430c-a407-4021131a98d6",
+						"type": "text/javascript",
+						"exec": [
+							"var headerJwtUser = responseHeaders[\"Authorization\"]",
+							"postman.setEnvironmentVariable(\"tokenUser\", headerJwtUser);",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"username\":\"user\", \"password\":\"user\"}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hello User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4a5b2f2e-ce33-4541-828c-343517425479",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status is 200\"] = responseCode.code == \"200\""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tokenUser}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/hello/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"hello",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hello Admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f6f8d7bc-9e3b-4dde-bbb5-f4ae6469ac13",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status is 403\"] = responseCode.code == \"403\""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tokenUser}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/hello/admin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"hello",
+						"admin"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

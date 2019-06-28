@@ -1,0 +1,158 @@
+{
+	"info": {
+		"_postman_id": "f9330263-fd54-4255-8a4d-97a8ec046344",
+		"name": "PrivateShowCase Admin",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login Admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "be0e70c0-2517-4251-9c31-ae4c3370fee2",
+						"type": "text/javascript",
+						"exec": [
+							"var headerJwt = responseHeaders[\"Authorization\"]",
+							"postman.setEnvironmentVariable(\"token\", headerJwt);",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"username\":\"admin\", \"password\":\"admin\"}"
+				},
+				"url": {
+					"raw": "{{uri}}/login",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hello Admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "683342df-aaec-4a68-bf2b-4f29776ccdbf",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status is 200\"] = responseCode.code == \"200\""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{uri}}/hello/admin",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"hello",
+						"admin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hello User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f6f8d7bc-9e3b-4dde-bbb5-f4ae6469ac13",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status is 403\"] = responseCode.code == \"403\""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{uri}}/hello/user",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"hello",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hello Upload File",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f6f8d7bc-9e3b-4dde-bbb5-f4ae6469ac13",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status is 403\"] = responseCode.code == \"403\""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{uri}}/hello/user",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"hello",
+						"user"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
