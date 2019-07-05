@@ -35,7 +35,7 @@ public class HelloControllerTest {
 	@Test
 	public void shouldReturnHelloAdmin() throws Exception {
 
-		MvcResult mvcResult = mvc.perform(formLogin("/login").user("admin").password("admin")).andReturn();
+		MvcResult mvcResult = mvc.perform(formLogin("/login").user("admin").password("Adminnistrateur1")).andReturn();
 		String authorizationHeader = mvcResult.getResponse().getHeader("Authorization");
 
 		mvc.perform(
@@ -59,7 +59,7 @@ public class HelloControllerTest {
 	@Test
 	public void shouldForbidAdminToHelloUser() throws Exception {
 
-		MvcResult mvcResult = mvc.perform(formLogin("/login").user("admin").password("admin")).andReturn();
+		MvcResult mvcResult = mvc.perform(formLogin("/login").user("admin").password("Adminnistrateur1")).andReturn();
 
 		String authorizationHeader = mvcResult.getResponse().getHeader("Authorization");
 		

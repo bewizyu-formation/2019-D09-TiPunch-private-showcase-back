@@ -27,7 +27,7 @@ public class CommuneControllerTest {
 	@Test
 	public void shouldReturnValidResponse() throws Exception {
 
-		MvcResult mvcResult = mvc.perform(formLogin("/login").user("user").password("user")).andReturn();
+		MvcResult mvcResult = mvc.perform(formLogin("/login").user("user").password("User1234")).andReturn();
 		String authorizationHeader = mvcResult.getResponse().getHeader("Authorization");
 
 		mvc.perform(

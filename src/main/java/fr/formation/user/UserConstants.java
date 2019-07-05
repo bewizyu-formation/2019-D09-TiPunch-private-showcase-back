@@ -2,7 +2,7 @@ package fr.formation.user;
 
 public class UserConstants {
 
-    public static final String PASSWORD_PATTERN = "((?=.*[a-z])(?=.*\\d)(?=.*[A-Z]).{8,50})";
+    public static final String PASSWORD_PATTERN = "((?=.*[a-z])(?=.*\\d)(?=.*[A-Z]).{8,1000})";
 
     public static final int MIN_LENGTH = 2;
 
