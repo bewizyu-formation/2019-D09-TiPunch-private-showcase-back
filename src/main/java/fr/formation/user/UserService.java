@@ -84,4 +84,13 @@ public class UserService implements UserDetailsService {
 		}
 
 	}
+
+	public User findByUsername(String username) throws UsernameNotFoundException {
+
+		return userRepository.findByUsername(username);
+	}
+
+	public List<User> findAll() {
+		return userRepository.findAll();
+	}
 }

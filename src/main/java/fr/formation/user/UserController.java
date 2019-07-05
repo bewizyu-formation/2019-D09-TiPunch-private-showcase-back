@@ -1,10 +1,10 @@
 package fr.formation.user;
 
+import fr.formation.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * The type User controller.
@@ -29,6 +29,17 @@ public class UserController {
 
 		userService.addNewUser(username, password, roles);
 
+	}
+
+	@GetMapping("/{username}")
+	public User findByUsername(@PathVariable String username) {
+		User user = userService.findByUsername(username);
+		return user;
+	}
+
+	@GetMapping("/")
+	public List<User> findAll() {
+		return userService.findAll();
 	}
 
 }
