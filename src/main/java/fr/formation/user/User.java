@@ -3,6 +3,7 @@ package fr.formation.user;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -23,7 +24,7 @@ public class User {
 
 	@Column(name = "username")
 	@NotNull
-	@Size(min=2, max=150)
+	@Size(min=UserConstants.MIN_LENGTH, max=UserConstants.USERNAME_MAX_LENGTH)
 	private String username;
 
 
@@ -35,12 +36,29 @@ public class User {
 	@Column(name="email")
 	@NotNull
 	@Email
+	@Size(min=UserConstants.MIN_LENGTH, max=UserConstants.EMAIL_MAX_LENGTH)
 	private String email;
 
 	@Column(name="city")
 	@NotNull
-	@Size(min=2, max=200)
+	@Size(min=UserConstants.MIN_LENGTH, max=UserConstants.CITY_MAX_LENGTH)
 	private String city;
+
+
+	/**
+	 * Check if the password contains at least 8 characters, with at least one capital letter, one lowercase and one number
+	 * @return the boolean is valid
+	 */
+	@AssertTrue(message = "password must contains at least 8 characters, one uppercase, one lowercase and one number")
+	public boolean isValid() {
+		if(this.password != null) {
+			boolean response = this.password.matches(UserConstants.PASSWORD_PATTERN);
+			System.out.println("Test isValidate : password =" + password + "/ return =" + response);
+			return this.password.matches(UserConstants.PASSWORD_PATTERN);
+		}
+		return false;
+	}
+
 
 	/**
 	 * Instantiates a new User.

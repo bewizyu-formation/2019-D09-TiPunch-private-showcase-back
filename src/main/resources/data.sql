@@ -14,10 +14,10 @@ INSERT INTO user (username, discr, password, email, city) VALUES ('utilisateur5'
 
 
 -- Remplissage de la table "user_roles" avec les roles des 7 utilisateurs et artistes précéduser_rolesents
-INSERT INTO user_roles (userid, role) VALUES (1, 'USER_ADMIN');
-INSERT INTO user_roles (userid, role) VALUES (2, 'USER_USER');
-INSERT INTO user_roles (userid, role) VALUES (3, 'USER_USER');
-INSERT INTO user_roles (userid, role) VALUES (4, 'USER_USER');
-INSERT INTO user_roles (userid, role) VALUES (5, 'USER_USER');
+INSERT INTO user_roles (userid, role) VALUES (1, 'ROLE_ADMIN');
+INSERT INTO user_roles (userid, role) VALUES (2, 'ROLE_USER');
+INSERT INTO user_roles (userid, role) VALUES (3, 'ROLE_USER');
+INSERT INTO user_roles (userid, role) VALUES (4, 'ROLE_USER');
+INSERT INTO user_roles (userid, role) VALUES (5, 'ROLE_USER');
 -- INSERT INTO user_roles (role_id, userid, role) VALUES (6, 6, 'USER_USER');
 -- INSERT INTO user_roles (role_id, userid, role) VALUES (7, 7, 'USER_USER');

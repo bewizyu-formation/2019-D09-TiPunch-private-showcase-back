@@ -1,13 +1,11 @@
 package fr.formation.user;
 
 import org.assertj.core.api.Assertions;
+import org.assertj.core.api.ListAssert;
 import org.assertj.core.groups.Tuple;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
@@ -15,10 +13,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 
-import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -38,7 +36,7 @@ public class UserRepositoryTest {
      */
     @Before
     public void init() {
-        this.userTest = new User("Utilisateur test", "pass", "email@email.fr", "Paris");
+        this.userTest = new User("Utilisateur test", "Password1", "email@email.fr", "Paris");
     }
 
     /**
@@ -118,7 +116,7 @@ public class UserRepositoryTest {
             entityManager.flush();
         })
                 .isExactlyInstanceOf(javax.validation.ConstraintViolationException.class)
-                .hasMessageContaining("la taille doit être comprise entre 2 et 150");
+                .hasMessageContaining("la taille doit être comprise entre " + UserConstants.MIN_LENGTH + " et " + UserConstants.USERNAME_MAX_LENGTH);
     }
 
     /**
@@ -133,6 +131,62 @@ public class UserRepositoryTest {
         })
                 .isExactlyInstanceOf(javax.validation.ConstraintViolationException.class)
                 .hasMessageContaining("doit être une adresse email bien formée");
+    }
+
+    /**
+     * Should throw exception when password doesn't respect the rules.
+     */
+    @Test
+    public void createShouldThrowExceptionWhenPasswordWithoutNumber() {
+        Assertions.assertThatThrownBy(() -> {
+            this.userTest.setPassword("WithoutNumber");
+            userRepository.save(userTest);
+        })
+                .isExactlyInstanceOf(javax.validation.ConstraintViolationException.class)
+                .hasMessageContaining("password must contains at least 8 characters, one uppercase, one lowercase and one number");
+
+    }
+
+    /**
+     * Should throw exception when password doesn't respect the rules.
+     */
+    @Test
+    public void createShouldThrowExceptionWhenPasswordWithoutUppercase() {
+        Assertions.assertThatThrownBy(() -> {
+            this.userTest.setPassword("withoutuppercase1");
+            userRepository.save(userTest);
+        })
+                .isExactlyInstanceOf(javax.validation.ConstraintViolationException.class)
+                .hasMessageContaining("password must contains at least 8 characters, one uppercase, one lowercase and one number");
+
+    }
+
+    /**
+     * Should throw exception when password doesn't respect the rules.
+     */
+    @Test
+    public void createShouldThrowExceptionWhenPasswordWithoutLowercase() {
+        Assertions.assertThatThrownBy(() -> {
+            this.userTest.setPassword("WITHOUTLOWERCASE1");
+            userRepository.save(userTest);
+        })
+                .isExactlyInstanceOf(javax.validation.ConstraintViolationException.class)
+                .hasMessageContaining("password must contains at least 8 characters, one uppercase, one lowercase and one number");
+
+    }
+
+    /**
+     * Should throw exception when password doesn't respect the rules.
+     */
+    @Test
+    public void createShouldThrowExceptionWhenPasswordHasBadSize() {
+        Assertions.assertThatThrownBy(() -> {
+            this.userTest.setPassword("Bads1ze");
+            userRepository.save(userTest);
+        })
+                .isExactlyInstanceOf(javax.validation.ConstraintViolationException.class)
+                .hasMessageContaining("password must contains at least 8 characters, one uppercase, one lowercase and one number");
+
     }
 
     /**
