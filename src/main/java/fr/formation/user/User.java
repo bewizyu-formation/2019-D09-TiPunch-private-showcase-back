@@ -52,8 +52,6 @@ public class User {
 	@AssertTrue(message = "password must contains at least 8 characters, one uppercase, one lowercase and one number")
 	public boolean isValid() {
 		if(this.password != null) {
-			boolean response = this.password.matches(UserConstants.PASSWORD_PATTERN);
-			System.out.println("Test isValidate : password =" + password + "/ return =" + response);
 			return this.password.matches(UserConstants.PASSWORD_PATTERN);
 		}
 		return false;
