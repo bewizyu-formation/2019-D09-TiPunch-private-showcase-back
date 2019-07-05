@@ -8,6 +8,7 @@ addons:
       secure: $SONAR_CLOUD_TOKEN
     branches:
     - master
+    - develop
 jdk:
  - oraclejdk8
 script:
