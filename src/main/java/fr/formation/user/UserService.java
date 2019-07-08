@@ -1,5 +1,6 @@
 package fr.formation.user;
 
+import fr.formation.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -85,8 +86,7 @@ public class UserService implements UserDetailsService {
 
 	}
 
-	public User findByUsername(String username) throws UsernameNotFoundException {
-
+	public User findByUsername(String username) {
 		return userRepository.findByUsername(username);
 	}
 
