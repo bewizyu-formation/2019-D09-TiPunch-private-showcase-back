@@ -7,15 +7,35 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.util.Date;
 
+/**
+ * Handle the REST controller's exceptions
+ */
 @ControllerAdvice
 public class ExceptionController {
 
-    //réponse d'erreur à la demande REST si element non trouvé
+    /**
+     * Error response to REST request if element not found.
+     * @param e NotFoundException
+     * @return a ResponseEntity with an error status and error message and date in the body.
+     */
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<ErrorDto> handle(NotFoundException e){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorDto(e.getMessage()));
     }
 
+    /**
+     * Error response to REST request if a value that must be unique already exists.
+     * @param e AlreadyExistsException
+     * @return a ResponseEntity with an error status and error message and date in the body.
+     */
+    @ExceptionHandler(AlreadyExistsException.class)
+    public ResponseEntity<ErrorDto> handle(AlreadyExistsException e){
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorDto(e.getMessage()));
+    }
+
+    /**
+     * DTO class used to transmit the error message and date
+     */
     private class ErrorDto{
         private String message;
         private Date date = new Date();

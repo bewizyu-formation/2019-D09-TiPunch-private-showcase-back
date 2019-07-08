@@ -1,6 +1,7 @@
 package fr.formation.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 
