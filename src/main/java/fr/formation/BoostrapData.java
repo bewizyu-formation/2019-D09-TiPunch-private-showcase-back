@@ -1,5 +1,6 @@
 package fr.formation;
 
+import fr.formation.artist.ArtistService;
 import fr.formation.security.SecurityConstants;
 import fr.formation.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ public class BoostrapData {
 
 	private UserService userService;
 
+	private ArtistService artistService;
+
 	private PasswordEncoder passwordEncoder;
 
 	/**
@@ -25,9 +28,10 @@ public class BoostrapData {
 	 * @param passwordEncoder the password encoder
 	 */
 	@Autowired
-	public BoostrapData(UserService userService, PasswordEncoder passwordEncoder) {
+	public BoostrapData(UserService userService, PasswordEncoder passwordEncoder, ArtistService artistService) {
 		this.userService = userService;
 		this.passwordEncoder = passwordEncoder;
+		this.artistService = artistService;
 	}
 
 	/**
@@ -50,6 +54,28 @@ public class BoostrapData {
 				"Lyon",
 				SecurityConstants.ROLE_USER
 		);
+
+		artistService.addNewUserArtist(
+				"artist1",
+				passwordEncoder.encode("Artist1"),
+				"artist1@email.fr",
+				"Marseille",
+				"Artist 1",
+				"Je suis l'artiste 1 et je m'éclate dans tout ce que je fais",
+				SecurityConstants.ROLE_USER
+				);
+
+		artistService.addNewUserArtist(
+				"artist2",
+				passwordEncoder.encode("Artist2"),
+				"artist2@email.fr",
+				"Nîmes",
+				"Artiste 2",
+				"Je suis l'artist 2 et je m'éclate dans tout ce que je fais",
+				SecurityConstants.ROLE_USER
+		);
+
+
 	}
 
 }
