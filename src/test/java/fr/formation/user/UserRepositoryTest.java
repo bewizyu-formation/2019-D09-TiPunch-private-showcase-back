@@ -60,7 +60,7 @@ public class UserRepositoryTest {
             entityManager.flush();
         })
                 .isExactlyInstanceOf(javax.validation.ConstraintViolationException.class)
-                .hasMessageContaining("ne peut pas être nul");
+                .hasMessageContaining("must not be null");
     }
 
     /**
@@ -74,7 +74,7 @@ public class UserRepositoryTest {
             entityManager.flush();
         })
                 .isExactlyInstanceOf(javax.validation.ConstraintViolationException.class)
-                .hasMessageContaining("ne peut pas être nul");
+                .hasMessageContaining("must not be null");
     }
 
     /**
@@ -88,7 +88,7 @@ public class UserRepositoryTest {
             entityManager.flush();
         })
                 .isExactlyInstanceOf(javax.validation.ConstraintViolationException.class)
-                .hasMessageContaining("ne peut pas être nul");
+                .hasMessageContaining("must not be null");
     }
 
     /**
@@ -102,7 +102,7 @@ public class UserRepositoryTest {
             entityManager.flush();
         })
                 .isExactlyInstanceOf(javax.validation.ConstraintViolationException.class)
-                .hasMessageContaining("ne peut pas être nul");
+                .hasMessageContaining("must not be null");
     }
 
     /**

@@ -28,9 +28,9 @@ public class UserController {
 	 */
 	@PutMapping("/")
 	public void signup(@RequestParam String username, @RequestParam String password,
-										 @RequestParam String... roles) {
+					   @RequestParam String email, @RequestParam String city, @RequestParam String... roles) {
 		if(userService.findByUsername(username) == null) {
-			userService.addNewUser(username, password, roles);
+			userService.addNewUser(username, password, email, city, roles);
 		} else {
 			throw new AlreadyExistsException("The username " + username + " already exist.");
 		}

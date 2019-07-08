@@ -50,7 +50,7 @@ public class UserControllerTest {
      */
     @Before
     public void init() throws Exception {
-        MvcResult mvcResult = mvc.perform(formLogin("/login").user("admin").password("admin")).andReturn();
+        MvcResult mvcResult = mvc.perform(formLogin("/login").user("admin").password("Admin1234")).andReturn();
         this.authorizationHeader = mvcResult.getResponse().getHeader("Authorization");
 
         this.userTest = userRepository.findByUsername("user");
@@ -72,13 +72,15 @@ public class UserControllerTest {
      */
     @Test
     public void signup() throws Exception{
-        Assertions.assertThat(userRepository.findAll()).hasSize(2);
+        Assertions.assertThat(userRepository.findAll()).hasSize(7);
         mvc.perform(put("/users/")
                 .param("username", "New User")
                 .param("password", "Password2")
+                .param("email", "email@email.fr")
+                .param("city", "Paris")
                 .param("roles", SecurityConstants.ROLE_USER))
                 .andExpect(status().isOk());
-        Assertions.assertThat(userRepository.findAll()).hasSize(3);
+        Assertions.assertThat(userRepository.findAll()).hasSize(8);
     }
 
     /**
@@ -87,14 +89,16 @@ public class UserControllerTest {
      */
     @Test
     public void signupWithUsernameThatAlreadyExists() throws Exception{
-        Assertions.assertThat(userRepository.findAll()).hasSize(2);
+        Assertions.assertThat(userRepository.findAll()).hasSize(7);
         mvc.perform(put("/users/")
                 .param("username", "user")
                 .param("password", "Password2")
+                .param("email", "email@email.fr")
+                .param("city", "Paris")
                 .param("roles", SecurityConstants.ROLE_USER))
                 .andExpect(status().is(401))
                 .andExpect(content().json("{\"message\":\"The username user already exist.\"}", false));
-        Assertions.assertThat(userRepository.findAll()).hasSize(2);
+        Assertions.assertThat(userRepository.findAll()).hasSize(7);
     }
 
     /**
