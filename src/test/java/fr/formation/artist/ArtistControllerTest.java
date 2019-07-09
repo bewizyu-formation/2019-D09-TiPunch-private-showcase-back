@@ -1,12 +1,13 @@
 package fr.formation.artist;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.formation.security.SecurityConstants;
+import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.MockMvcAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -15,6 +16,7 @@ import org.springframework.test.web.servlet.ResultActions;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.formLogin;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -32,6 +34,7 @@ public class ArtistControllerTest {
     /**
      * Used to parse java object to JSON
      */
+    @Autowired
     private ObjectMapper objectMapper;
 
     /**
@@ -71,5 +74,25 @@ public class ArtistControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(artistRepository.findAll())));
     }
+
+    /**
+     * Should save new artist in the database
+     */
+    @Test
+    public void signup() throws Exception{
+        Assertions.assertThat(artistRepository.findAll()).hasSize(2);
+        mvc.perform(put("/artists/")
+                .param("username","artist3")
+                .param("password","Artiste3")
+                .param("email","email@email.fr")
+                .param("city","Paris")
+                .param("name","artist3")
+                .param("description","Je suis l'artiste 3 et je m'éclate dans tout ce que je fais")
+                .param("roles", SecurityConstants.ROLE_USER))
+                .andExpect(status().isOk());
+        Assertions.assertThat(artistRepository.findAll()).hasSize(3);
+    }
+
+
 
 }

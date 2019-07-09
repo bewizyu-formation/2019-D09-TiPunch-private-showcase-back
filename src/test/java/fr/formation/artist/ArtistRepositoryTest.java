@@ -93,7 +93,7 @@ public class ArtistRepositoryTest {
             artistRepository.save(artistTest);
             entityManager.flush();
         }).isExactlyInstanceOf(javax.validation.ConstraintViolationException.class)
-           .hasMessageContaining("la taille doit être comprise entre 20 et 2147483647");
+           .hasMessageContaining("la taille doit être comprise entre "+ArtistConstants.MIN_DESC+" et "+ArtistConstants.MAX_DESC);
     }
 
     /**

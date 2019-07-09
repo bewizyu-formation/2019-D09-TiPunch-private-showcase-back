@@ -21,7 +21,7 @@ public class Artist extends User {
 
     @Column(name="description")
     @NotNull
-    @Size(min=ArtistConstants.MIN_DESC)
+    @Size(min=ArtistConstants.MIN_DESC, max=ArtistConstants.MAX_DESC)
     private String description;
 
     /**
@@ -45,7 +45,7 @@ public class Artist extends User {
                   @NotNull @Email String email,
                   @NotNull @Size(min = 2, max = 200) String city,
                   @NotNull @Size(min=2,max=50) String name,
-                  @NotNull @Size(min=20) String description){
+                  @NotNull @Size(min=20, max=250) String description){
         super(username, password, email, city);
         this.name = name;
         this.description = description;
