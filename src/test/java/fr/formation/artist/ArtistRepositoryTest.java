@@ -1,5 +1,6 @@
 package fr.formation.artist;
 
+import fr.formation.user.UserConstants;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.groups.Tuple;
 import org.junit.Before;
@@ -17,6 +18,9 @@ import javax.persistence.EntityManager;
 @ComponentScan
 public class ArtistRepositoryTest {
 
+    public final String[] ENGLISH_ERROR_MSGS = {"must not be null", "must be a well-formed email address", "size must be between " + ArtistConstants.MIN_LENGTH + " and " + ArtistConstants.MAX_LENGTH, "size must be between " + ArtistConstants.MIN_DESC + " and " + ArtistConstants.MAX_DESC};
+    public final String[] FRENCH_ERROR_MSGS = {"ne peut pas être nul", "doit être une adresse email bien formée", "la taille doit être comprise entre " + ArtistConstants.MIN_LENGTH + " et " + ArtistConstants.MAX_LENGTH, "la taille doit être comprise entre " + ArtistConstants.MIN_DESC + " et " + ArtistConstants.MAX_DESC};
+
     @Autowired
     private ArtistRepository artistRepository;
 
@@ -24,6 +28,7 @@ public class ArtistRepositoryTest {
     private EntityManager entityManager;
 
     private Artist artistTest;
+    private String[] errorsMsgs = ENGLISH_ERROR_MSGS;
 
     /**
      * Initialization of an artist used in the tests
@@ -54,7 +59,7 @@ public class ArtistRepositoryTest {
             artistRepository.save(artistTest);
             entityManager.flush();
         }).isExactlyInstanceOf(javax.validation.ConstraintViolationException.class)
-                .hasMessageContaining("ne peut pas être nul");
+                .hasMessageContaining(errorsMsgs[0]);
     }
 
     /**
@@ -67,7 +72,7 @@ public class ArtistRepositoryTest {
             artistRepository.save(artistTest);
             entityManager.flush();
         }).isExactlyInstanceOf(javax.validation.ConstraintViolationException.class)
-                .hasMessageContaining("ne peut pas être nul");
+                .hasMessageContaining(errorsMsgs[0]);
     }
 
     /**
@@ -80,7 +85,7 @@ public class ArtistRepositoryTest {
             artistRepository.save(artistTest);
             entityManager.flush();
         }).isExactlyInstanceOf(javax.validation.ConstraintViolationException.class)
-            .hasMessageContaining("la taille doit être comprise entre "+ArtistConstants.MIN_LENGTH+" et "+ArtistConstants.MAX_LENGTH);
+            .hasMessageContaining(errorsMsgs[2]);
     }
 
     /**
@@ -93,7 +98,7 @@ public class ArtistRepositoryTest {
             artistRepository.save(artistTest);
             entityManager.flush();
         }).isExactlyInstanceOf(javax.validation.ConstraintViolationException.class)
-           .hasMessageContaining("la taille doit être comprise entre "+ArtistConstants.MIN_DESC+" et "+ArtistConstants.MAX_DESC);
+           .hasMessageContaining(errorsMsgs[3]);
     }
 
     /**

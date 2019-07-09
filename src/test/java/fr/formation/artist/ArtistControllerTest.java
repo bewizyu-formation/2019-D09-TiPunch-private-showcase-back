@@ -49,7 +49,7 @@ public class ArtistControllerTest {
      */
     @Before
     public void init() throws Exception{
-        MvcResult mvcResult = mvc.perform(formLogin("/login").user("artist1").password("Artist1")).andReturn();
+        MvcResult mvcResult = mvc.perform(formLogin("/login").user("artist1").password("Artist12")).andReturn();
         this.authorizationHeader = mvcResult.getResponse().getHeader("Authorization");
     }
 
@@ -69,7 +69,6 @@ public class ArtistControllerTest {
      */
     @Test
     public void findAll() throws Exception {
-
         ResultActions str = getRequest("/artists/")
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(artistRepository.findAll())));
@@ -83,7 +82,7 @@ public class ArtistControllerTest {
         Assertions.assertThat(artistRepository.findAll()).hasSize(2);
         mvc.perform(put("/artists/")
                 .param("username","artist3")
-                .param("password","Artiste3")
+                .param("password","Artiste34")
                 .param("email","email@email.fr")
                 .param("city","Paris")
                 .param("name","artist3")
