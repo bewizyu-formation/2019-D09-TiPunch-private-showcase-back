@@ -23,6 +23,10 @@ import java.util.List;
 @ComponentScan
 public class UserRepositoryTest {
 
+    public final String[] ENGLISH_ERROR_MSGS = {"must not be null", "must be a well-formed email address", "size must be between " + UserConstants.MIN_LENGTH + " and " + UserConstants.USERNAME_MAX_LENGTH};
+    public final String[] FRENCH_ERROR_MSGS = {"ne peut pas être nul", "doit être une adresse email bien formée", "la taille doit être comprise entre " + UserConstants.MIN_LENGTH + " et " + UserConstants.USERNAME_MAX_LENGTH};
+
+
     @Autowired
     private UserRepository userRepository;
 
@@ -30,6 +34,7 @@ public class UserRepositoryTest {
     private EntityManager entityManager;
 
     private User userTest;
+    private String[] errorsMsgs = ENGLISH_ERROR_MSGS;
 
     /**
      * Initialization of a user used in the tests.
@@ -60,7 +65,7 @@ public class UserRepositoryTest {
             entityManager.flush();
         })
                 .isExactlyInstanceOf(javax.validation.ConstraintViolationException.class)
-                .hasMessageContaining("ne peut pas être nul");
+                .hasMessageContaining(errorsMsgs[0]);
     }
 
     /**
@@ -74,7 +79,7 @@ public class UserRepositoryTest {
             entityManager.flush();
         })
                 .isExactlyInstanceOf(javax.validation.ConstraintViolationException.class)
-                .hasMessageContaining("ne peut pas être nul");
+                .hasMessageContaining(errorsMsgs[0]);
     }
 
     /**
@@ -88,7 +93,7 @@ public class UserRepositoryTest {
             entityManager.flush();
         })
                 .isExactlyInstanceOf(javax.validation.ConstraintViolationException.class)
-                .hasMessageContaining("ne peut pas être nul");
+                .hasMessageContaining(errorsMsgs[0]);
     }
 
     /**
@@ -102,7 +107,7 @@ public class UserRepositoryTest {
             entityManager.flush();
         })
                 .isExactlyInstanceOf(javax.validation.ConstraintViolationException.class)
-                .hasMessageContaining("ne peut pas être nul");
+                .hasMessageContaining(errorsMsgs[0]);
     }
 
     /**
@@ -116,7 +121,7 @@ public class UserRepositoryTest {
             entityManager.flush();
         })
                 .isExactlyInstanceOf(javax.validation.ConstraintViolationException.class)
-                .hasMessageContaining("la taille doit être comprise entre " + UserConstants.MIN_LENGTH + " et " + UserConstants.USERNAME_MAX_LENGTH);
+                .hasMessageContaining(errorsMsgs[2]);
     }
 
     /**
@@ -130,7 +135,7 @@ public class UserRepositoryTest {
             entityManager.flush();
         })
                 .isExactlyInstanceOf(javax.validation.ConstraintViolationException.class)
-                .hasMessageContaining("doit être une adresse email bien formée");
+                .hasMessageContaining(errorsMsgs[1]);
     }
 
     /**
