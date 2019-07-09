@@ -72,7 +72,7 @@ public class UserControllerTest {
      */
     @Test
     public void signup() throws Exception{
-        Assertions.assertThat(userRepository.findAll()).hasSize(7);
+        Assertions.assertThat(userRepository.findAll()).hasSize(10);
         mvc.perform(put("/users/")
                 .param("username", "New User")
                 .param("password", "Password2")
@@ -80,7 +80,7 @@ public class UserControllerTest {
                 .param("city", "Paris")
                 .param("roles", SecurityConstants.ROLE_USER))
                 .andExpect(status().isOk());
-        Assertions.assertThat(userRepository.findAll()).hasSize(8);
+        Assertions.assertThat(userRepository.findAll()).hasSize(11);
     }
 
     /**
@@ -89,7 +89,7 @@ public class UserControllerTest {
      */
     @Test
     public void signupWithUsernameThatAlreadyExists() throws Exception{
-        Assertions.assertThat(userRepository.findAll()).hasSize(7);
+        Assertions.assertThat(userRepository.findAll()).hasSize(10);
         mvc.perform(put("/users/")
                 .param("username", "user")
                 .param("password", "Password2")
@@ -98,7 +98,7 @@ public class UserControllerTest {
                 .param("roles", SecurityConstants.ROLE_USER))
                 .andExpect(status().is(401))
                 .andExpect(content().json("{\"message\":\"The username user already exist.\"}", false));
-        Assertions.assertThat(userRepository.findAll()).hasSize(7);
+        Assertions.assertThat(userRepository.findAll()).hasSize(10);
     }
 
     /**
