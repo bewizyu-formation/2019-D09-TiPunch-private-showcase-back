@@ -2,6 +2,7 @@ package fr.formation.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.formation.artist.ArtistController;
+import fr.formation.artist.ArtistService;
 import fr.formation.user.UserController;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,6 +31,9 @@ public class CheckNotTakenControlerTest {
 
     @Autowired
     private CheckNotTakenControler checkControler;
+
+    @Autowired
+    private ArtistService artServ;
 
     CheckNotTakenControler.CheckUniqueDto check;
 
@@ -70,7 +74,7 @@ public class CheckNotTakenControlerTest {
     @Test
     public void checkArtistNameWhenExist() throws Exception {
         //By default, the value of artistNameNotTaken is false when CheckUniqueDto is instantiate
-        mvc.perform(get("/checknottaken/artistname/" + "Artist_1"))
+        mvc.perform(get("/checknottaken/artistname/" + "Artist 1"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(this.check)));
     }
