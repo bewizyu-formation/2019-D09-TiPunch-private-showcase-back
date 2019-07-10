@@ -20,16 +20,15 @@ public class UserController {
 	/**
 	 * User signup
 	 *
-	 * @param userForm
+	 * @param userDto
 	 * @throws AlreadyExistsException if the username already exists.
 	 */
 	@PutMapping("/")
-	public void signup(@RequestBody UserForm userForm) {
-		if(userService.findByUsername(userForm.getUsername()) == null) {
-			System.out.println("Sauvegarde du user : " + userForm.getUsername());
-			userService.addNewUser(userForm.getUsername(), userForm.getPassword(), userForm.getEmail(), userForm.getCity(), userForm.getRoles());
+	public void signup(@RequestBody UserDto userDto) {
+		if(userService.findByUsername(userDto.getUsername()) == null) {
+			userService.addNewUser(userDto.getUsername(), userDto.getPassword(), userDto.getEmail(), userDto.getCity(), userDto.getRoles());
 		} else {
-			throw new AlreadyExistsException("The username " + userForm.getUsername() + " already exist.");
+			throw new AlreadyExistsException("The username " + userDto.getUsername() + " already exist.");
 		}
 	}
 
