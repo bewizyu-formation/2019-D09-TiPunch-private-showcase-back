@@ -2,6 +2,7 @@ package fr.formation.artist;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.formation.security.SecurityConstants;
+import fr.formation.user.UserController;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
@@ -91,7 +92,5 @@ public class ArtistControllerTest {
                 .andExpect(status().isOk());
         Assertions.assertThat(artistRepository.findAll()).hasSize(3);
     }
-
-
 
 }

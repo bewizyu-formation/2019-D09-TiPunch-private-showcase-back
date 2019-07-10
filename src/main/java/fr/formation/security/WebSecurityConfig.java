@@ -49,6 +49,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.PUT, "/users/").permitAll()
 				.antMatchers(HttpMethod.PUT,"/artists/").permitAll()
 				.antMatchers(HttpMethod.POST, "/login").permitAll()
+				.antMatchers(HttpMethod.GET, "/checknottaken/username/{username}").permitAll()
+				.antMatchers(HttpMethod.GET, "/checknottaken/artistname/{artistName}").permitAll()
 				.anyRequest().authenticated()
 				.and()
 				.logout().permitAll()
