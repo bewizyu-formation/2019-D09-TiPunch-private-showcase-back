@@ -5,7 +5,11 @@ import fr.formation.artist.ArtistController;
 import fr.formation.user.UserController;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.junit.Assert.*;
@@ -13,6 +17,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@AutoConfigureMockMvc
 public class CheckNotTakenControlerTest {
 
     @Autowired
@@ -21,12 +28,16 @@ public class CheckNotTakenControlerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private CheckNotTakenControler checkControler;
+
     CheckNotTakenControler.CheckUniqueDto check;
 
     @Before
     public void init() {
         this.check = new CheckNotTakenControler().new CheckUniqueDto();
     }
+
     /**
      * Should return CheckUniqueDTO with usernameNotTaken = false if the username exists.
      * @throws Exception
@@ -34,9 +45,9 @@ public class CheckNotTakenControlerTest {
     @Test
     public void checkUsernameWithUsernameThatExist() throws Exception {
         //By default, the value of usernameNotTaken is false when CheckUniqueDto is instantiate
-        mvc.perform(get("/users/checkUsernameNotTaken/" + "user"))
+        mvc.perform(get("/checknottaken/username/" + "user"))
                 .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(check)));
+                .andExpect(content().json(objectMapper.writeValueAsString(this.check)));
     }
 
     /**
@@ -45,10 +56,10 @@ public class CheckNotTakenControlerTest {
      */
     @Test
     public void checkUsernameWithUsernameThatNotExist() throws Exception {
-        check.setUsernameNotTaken(true);
-        mvc.perform(get("/users/checkUsernameNotTaken/" + "New user"))
+        this.check.setUsernameNotTaken(true);
+        mvc.perform(get("/checknottaken/username/" + "New_user"))
                 .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(check)));
+                .andExpect(content().json(objectMapper.writeValueAsString(this.check)));
     }
 
 
@@ -59,9 +70,9 @@ public class CheckNotTakenControlerTest {
     @Test
     public void checkArtistNameWhenExist() throws Exception {
         //By default, the value of artistNameNotTaken is false when CheckUniqueDto is instantiate
-        mvc.perform(get("/artists/checkArtistNameNotTaken/" + "artist1"))
+        mvc.perform(get("/checknottaken/artistname/" + "Artist_1"))
                 .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(check)));
+                .andExpect(content().json(objectMapper.writeValueAsString(this.check)));
     }
 
     /**
@@ -70,10 +81,10 @@ public class CheckNotTakenControlerTest {
      */
     @Test
     public void checkArtistNameWithUsernameThatNotExist() throws Exception {
-        check.setArtistNameNotTaken(true);
-        mvc.perform(get("/artists/checkArtistNameNotTaken/" + "New artist"))
+        this.check.setArtistNameNotTaken(true);
+        mvc.perform(get("/checknottaken/artistname/" + "New_artist"))
                 .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(check)));
+                .andExpect(content().json(objectMapper.writeValueAsString(this.check)));
     }
 
 }
