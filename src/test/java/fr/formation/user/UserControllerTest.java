@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -44,8 +45,10 @@ public class UserControllerTest {
 
     private User userTest;
 
+    private UserDto userDto;
+
     /**
-     * Initialization of user used in tests and identification for the requests.
+     * Initialization of user and userDto used in tests and identification for the requests.
      * @throws Exception
      */
     @Before
@@ -54,6 +57,7 @@ public class UserControllerTest {
         this.authorizationHeader = mvcResult.getResponse().getHeader("Authorization");
 
         this.userTest = userRepository.findByUsername("user");
+        this.userDto = new UserDto("New user", "Password2", "email@email.fr", "Paris", new String []{SecurityConstants.ROLE_USER});
     }
 
     /**
@@ -74,13 +78,11 @@ public class UserControllerTest {
     public void signup() throws Exception{
         Assertions.assertThat(userRepository.findAll()).hasSize(10);
         mvc.perform(put("/users/")
-                .param("username", "New User")
-                .param("password", "Password2")
-                .param("email", "email@email.fr")
-                .param("city", "Paris")
-                .param("roles", SecurityConstants.ROLE_USER))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(this.userDto)))
                 .andExpect(status().isOk());
         Assertions.assertThat(userRepository.findAll()).hasSize(11);
+
     }
 
     /**
@@ -90,12 +92,10 @@ public class UserControllerTest {
     @Test
     public void signupWithUsernameThatAlreadyExists() throws Exception{
         Assertions.assertThat(userRepository.findAll()).hasSize(10);
+        this.userDto.setUsername("user");
         mvc.perform(put("/users/")
-                .param("username", "user")
-                .param("password", "Password2")
-                .param("email", "email@email.fr")
-                .param("city", "Paris")
-                .param("roles", SecurityConstants.ROLE_USER))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(this.userDto)))
                 .andExpect(status().is(401))
                 .andExpect(content().json("{\"message\":\"The username user already exist.\"}", false));
         Assertions.assertThat(userRepository.findAll()).hasSize(10);
@@ -137,33 +137,4 @@ public class UserControllerTest {
                 .andExpect(content().json(objectMapper.writeValueAsString(userRepository.findAll())));
     }
 
-    /**
-     * Should return CheckUniqueDTO with usernameNotTaken = false if the username exists.
-     * @throws Exception
-     */
-    @Test
-    public void checkUsernameWithUsernameThatExist() throws Exception {
-        UserController.CheckUniqueDto check = new UserController().new CheckUniqueDto();
-        //By default, the value of usernameNotTaken is false when CheckUniqueDto is instantiate
-        getRequest("/users/checkUsernameNotTaken/" + "user")
-                .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(check)));
-    }
-
-    /**
-     * Should return CheckUniqueDTO with usernameNotTaken = true if the username exists.
-     * @throws Exception
-     */
-    @Test
-    public void checkUsernameWithUsernameThatNotExist() throws Exception {
-        UserController.CheckUniqueDto check = new UserController().new CheckUniqueDto();
-        check.setUsernameNotTaken(true);
-        getRequest("/users/checkUsernameNotTaken/" + "New user")
-                .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(check)));
-    }
-
-    @Test
-    public void checkArtistName() {
-    }
 }

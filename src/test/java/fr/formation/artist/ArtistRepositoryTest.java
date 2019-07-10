@@ -1,6 +1,5 @@
 package fr.formation.artist;
 
-import fr.formation.user.UserConstants;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.groups.Tuple;
 import org.junit.Before;
@@ -35,7 +34,7 @@ public class ArtistRepositoryTest {
      */
     @Before
     public void init(){
-        this.artistTest = new Artist("username","Password1","email@email.fr","Paris","Artist Test","Je suis un Artiste Test et je m'éclate dans tout ce que je fais");
+        this.artistTest = new Artist("New artist","Password1","email@email.fr","Paris","Artist Test","Je suis un Artiste Test et je m'éclate dans tout ce que je fais");
     }
 
     /**

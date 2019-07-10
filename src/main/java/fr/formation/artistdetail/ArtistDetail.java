@@ -26,6 +26,9 @@ public class ArtistDetail {
     @Column(name="site")
     private String site;
 
+    @Column(name="phoneNumber")
+    private int phoneNumber;
+
     @Column(name="nbVotes")
     private int nbVotes;
 
@@ -35,15 +38,16 @@ public class ArtistDetail {
     @OneToOne
     private Artist artiste;
 
-    @OneToMany
+    @OneToMany(mappedBy = "artistDetail")
     private Set<Department> departments;
 
     public ArtistDetail(){}
 
-    public ArtistDetail(Byte[] photo, String longDescription, String site, int nbVotes, int totalVotes, Artist artiste, Set<Department> departments) {
+    public ArtistDetail(Byte[] photo, String longDescription, String site, int phoneNumber, int nbVotes, int totalVotes, Artist artiste, Set<Department> departments) {
         this.photo = photo;
         this.longDescription = longDescription;
         this.site = site;
+        this.phoneNumber = phoneNumber;
         this.nbVotes = nbVotes;
         this.totalVotes = totalVotes;
         this.artiste = artiste;

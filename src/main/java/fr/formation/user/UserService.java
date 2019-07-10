@@ -90,10 +90,21 @@ public class UserService implements UserDetailsService {
 
 	}
 
+	/**
+	 * Find a user with his username.
+	 *
+	 * @param username
+	 * @return the user or null
+	 */
 	public User findByUsername(String username) {
 		return userRepository.findByUsername(username);
 	}
 
+	/**
+	 * Return a list of all users.
+	 *
+	 * @return users list
+	 */
 	public List<User> findAll() {
 		return userRepository.findAll();
 	}
