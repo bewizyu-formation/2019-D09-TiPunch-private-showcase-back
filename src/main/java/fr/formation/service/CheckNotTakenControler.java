@@ -61,6 +61,14 @@ public class CheckNotTakenControler {
         public CheckUniqueDto() {
         }
 
+        @Override
+        public String toString() {
+            return "CheckUniqueDto{" +
+                    "usernameNotTaken=" + usernameNotTaken +
+                    ", artistNameNotTaken=" + artistNameNotTaken +
+                    '}';
+        }
+
         /**
          * Gets usernameNotTaken
          * @return the boolean usernameNotTaken
