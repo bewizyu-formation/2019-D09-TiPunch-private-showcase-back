@@ -137,33 +137,4 @@ public class UserControllerTest {
                 .andExpect(content().json(objectMapper.writeValueAsString(userRepository.findAll())));
     }
 
-    /**
-     * Should return CheckUniqueDTO with usernameNotTaken = false if the username exists.
-     * @throws Exception
-     */
-    @Test
-    public void checkUsernameWithUsernameThatExist() throws Exception {
-        UserController.CheckUniqueDto check = new UserController().new CheckUniqueDto();
-        //By default, the value of usernameNotTaken is false when CheckUniqueDto is instantiate
-        getRequest("/users/checkUsernameNotTaken/" + "user")
-                .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(check)));
-    }
-
-    /**
-     * Should return CheckUniqueDTO with usernameNotTaken = true if the username exists.
-     * @throws Exception
-     */
-    @Test
-    public void checkUsernameWithUsernameThatNotExist() throws Exception {
-        UserController.CheckUniqueDto check = new UserController().new CheckUniqueDto();
-        check.setUsernameNotTaken(true);
-        getRequest("/users/checkUsernameNotTaken/" + "New user")
-                .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(check)));
-    }
-
-    @Test
-    public void checkArtistName() {
-    }
 }

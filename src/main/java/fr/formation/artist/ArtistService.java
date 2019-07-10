@@ -40,4 +40,8 @@ public class ArtistService {
             userRoleRepository.save(userRole);
         }
     }
+
+    public Artist findByName(String artistName) {
+        return artistRepository.findByName(artistName);
+    }
 }

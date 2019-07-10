@@ -1,5 +1,8 @@
 package fr.formation.artist;
 
+import fr.formation.exception.NotFoundException;
+import fr.formation.user.User;
+import fr.formation.user.UserController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,16 +25,9 @@ public class ArtistController {
     }
 
     @PutMapping("/")
-    public void signUp(@RequestParam String username,
-                       @RequestParam String password,
-                       @RequestParam String email,
-                       @RequestParam String city,
-                       @RequestParam String name,
-                       @RequestParam String description,
-                       @RequestParam String... roles){
-
-        artistService.addNewUserArtist(username, password, email, city, name, description, roles);
-
+    public void signUp(@RequestBody ArtistForm artistForm){
+        artistService.addNewUserArtist(artistForm.getUsername(), artistForm.getPassword(), artistForm.getEmail(), artistForm.getCity(), artistForm.getName(), artistForm.getDescription(), artistForm.getRoles());
     }
+
 
 }
