@@ -27,7 +27,7 @@ public class ArtistRepositoryTest {
     private EntityManager entityManager;
 
     private Artist artistTest;
-    private String[] errorsMsgs = FRENCH_ERROR_MSGS;
+    private String[] errorsMsgs = ENGLISH_ERROR_MSGS;
 
     /**
      * Initialization of an artist used in the tests
