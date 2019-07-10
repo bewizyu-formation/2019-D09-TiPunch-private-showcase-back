@@ -1,6 +1,5 @@
 package fr.formation.artist;
 
-import fr.formation.user.UserConstants;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.groups.Tuple;
 import org.junit.Before;
@@ -28,14 +27,14 @@ public class ArtistRepositoryTest {
     private EntityManager entityManager;
 
     private Artist artistTest;
-    private String[] errorsMsgs = ENGLISH_ERROR_MSGS;
+    private String[] errorsMsgs = FRENCH_ERROR_MSGS;
 
     /**
      * Initialization of an artist used in the tests
      */
     @Before
     public void init(){
-        this.artistTest = new Artist("username","Password1","email@email.fr","Paris","Artist Test","Je suis un Artiste Test et je m'éclate dans tout ce que je fais");
+        this.artistTest = new Artist("New artist","Password1","email@email.fr","Paris","Artist Test","Je suis un Artiste Test et je m'éclate dans tout ce que je fais");
     }
 
     /**

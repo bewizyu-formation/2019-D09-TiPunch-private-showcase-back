@@ -1,6 +1,9 @@
-package fr.formation.artist;
+package fr.formation.user;
 
-public class ArtistForm {
+/**
+ * Object that collect users infos from form.
+ */
+public class UserDto {
 
     private String username;
 
@@ -10,22 +13,13 @@ public class ArtistForm {
 
     private String city;
 
-    private String name;
-
-    private String description;
-
     private String[] roles;
 
-    public ArtistForm() {
-    }
-
-    public ArtistForm(String username, String password, String email, String city, String name, String description, String[] roles) {
+    public UserDto(String username, String password, String email, String city, String[] roles) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.city = city;
-        this.name = name;
-        this.description = description;
         this.roles = roles;
     }
 
@@ -59,22 +53,6 @@ public class ArtistForm {
 
     public void setCity(String city) {
         this.city = city;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String[] getRoles() {
