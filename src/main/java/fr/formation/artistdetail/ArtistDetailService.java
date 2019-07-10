@@ -5,11 +5,13 @@ import fr.formation.artist.ArtistRepository;
 import fr.formation.artist.ArtistService;
 import fr.formation.department.Department;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 import java.util.Set;
 
+@Service
 public class ArtistDetailService {
 
     @Autowired
@@ -38,6 +40,6 @@ public class ArtistDetailService {
      * @return
      */
     public Set<ArtistDetail> findAllByDepartment(Department department){
-        return artistDetailRepository.findAllByDepartment(department);
+        return artistDetailRepository.findAllByDepartments(department);
     }
 }

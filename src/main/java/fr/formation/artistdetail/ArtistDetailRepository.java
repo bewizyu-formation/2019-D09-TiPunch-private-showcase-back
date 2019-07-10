@@ -7,6 +7,6 @@ import java.util.Set;
 
 public interface ArtistDetailRepository extends JpaRepository<ArtistDetail,Long> {
 
-    public Set<ArtistDetail> findAllByDepartment(Department department);
+    public Set<ArtistDetail> findAllByDepartments(Department department);
 
 }

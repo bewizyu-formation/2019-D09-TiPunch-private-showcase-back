@@ -7,6 +7,7 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -23,6 +24,8 @@ public class UserService implements UserDetailsService {
 
 	private UserRoleRepository userRoleRepository;
 
+	private PasswordEncoder passwordEncoder;
+
 	/**
 	 * Instantiates a new User service.
 	 *
@@ -30,10 +33,12 @@ public class UserService implements UserDetailsService {
 	 * @param userRoleRepository the user role repository
 	 */
 	@Autowired
-	public UserService(UserRepository userRepository, UserRoleRepository userRoleRepository) {
+	public UserService(UserRepository userRepository, UserRoleRepository userRoleRepository, PasswordEncoder passwordEncoder) {
 		this.userRepository = userRepository;
 		this.userRoleRepository = userRoleRepository;
+		this.passwordEncoder = passwordEncoder;
 	}
+
 
 	/**
 	 * transform a list of roles (as {@link String}) into a list of {@link GrantedAuthority}
@@ -51,6 +56,7 @@ public class UserService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user = userRepository.findByUsername(username);
 
+		System.out.println("loadByUserName : " + user.getUsername() + " " + user.getPassword());
 		if (user != null) {
 			List<String> roles = userRoleRepository.findRoleByUserName(username);
 			return new org.springframework.security.core.userdetails.User(username, user.getPassword(),
@@ -74,7 +80,7 @@ public class UserService implements UserDetailsService {
 
 		User user = new User();
 		user.setUsername(username);
-		user.setPassword(password);
+		user.setPassword(passwordEncoder.encode(password));
 		user.setEmail(email);
 		user.setCity(city);
 		user = userRepository.save(user);
@@ -87,6 +93,8 @@ public class UserService implements UserDetailsService {
 
 			userRoleRepository.save(userRole);
 		}
+
+		System.out.println("Création du user : " + user.getUsername() + " " + user.getPassword());
 
 	}
 

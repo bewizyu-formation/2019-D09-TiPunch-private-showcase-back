@@ -25,6 +25,7 @@ public class UserController {
 	 */
 	@PutMapping("/")
 	public void signup(@RequestBody UserDto userDto) {
+		System.out.println("Signup : " + userDto.getUsername() + " " + userDto.getPassword());
 		if(userService.findByUsername(userDto.getUsername()) == null) {
 			userService.addNewUser(userDto.getUsername(), userDto.getPassword(), userDto.getEmail(), userDto.getCity(), userDto.getRoles());
 		} else {
