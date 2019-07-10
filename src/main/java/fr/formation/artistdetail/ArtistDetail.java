@@ -86,6 +86,14 @@ public class ArtistDetail {
         this.site = site;
     }
 
+    public int getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(int phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     public int getNbVotes() {
         return nbVotes;
     }
