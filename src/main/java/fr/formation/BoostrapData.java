@@ -57,7 +57,7 @@ public class BoostrapData {
 
 		artistService.addNewUserArtist(
 				"artist1",
-				passwordEncoder.encode("Artist12"),
+				"Artist12",
 				"artist1@email.fr",
 				"Marseille",
 				"Artist 1",
@@ -67,7 +67,7 @@ public class BoostrapData {
 
 		artistService.addNewUserArtist(
 				"artist2",
-				passwordEncoder.encode("Artist23"),
+				"Artist23",
 				"artist2@email.fr",
 				"Nîmes",
 				"Artiste 2",
