@@ -49,9 +49,9 @@ public class UserRepositoryTest {
      */
     @Test
     public void createTest() {
-        Assertions.assertThat(userRepository.findAll()).hasSize(5);
+        Assertions.assertThat(userRepository.findAll()).hasSize(0);
         userRepository.save(this.userTest);
-        Assertions.assertThat(userRepository.findAll()).hasSize(6);
+        Assertions.assertThat(userRepository.findAll()).hasSize(1);
     }
 
     /**
@@ -236,7 +236,7 @@ public class UserRepositoryTest {
     public void findAll() {
         userRepository.save(this.userTest);
         Assertions.assertThat(userRepository.findAll())
-                .hasSize(6)
+                .hasSize(1)
                 .extracting("username", "email", "city")
                 .contains(Tuple.tuple(this.userTest.getUsername(), this.userTest.getEmail(), this.userTest.getCity()));
     }
@@ -248,10 +248,10 @@ public class UserRepositoryTest {
     public void delete() {
         userRepository.save(this.userTest);
         entityManager.flush();
-        Assertions.assertThat(userRepository.findAll()).hasSize(6);
+        Assertions.assertThat(userRepository.findAll()).hasSize(1);
         userRepository.delete(this.userTest);
         entityManager.flush();
-        Assertions.assertThat(userRepository.findAll()).hasSize(5);
+        Assertions.assertThat(userRepository.findAll()).hasSize(0);
     }
 
     /**
@@ -259,10 +259,10 @@ public class UserRepositoryTest {
      */
     @Test
     public void deleteWithBadUser() {
-        Assertions.assertThat(userRepository.findAll()).hasSize(5);
+        Assertions.assertThat(userRepository.findAll()).hasSize(0);
         userRepository.delete(this.userTest);
         entityManager.flush();
-        Assertions.assertThat(userRepository.findAll()).hasSize(5);
+        Assertions.assertThat(userRepository.findAll()).hasSize(0);
     }
 
     /**
@@ -272,14 +272,14 @@ public class UserRepositoryTest {
     public void update() {
         userRepository.save(this.userTest);
         entityManager.flush();
-        Assertions.assertThat(userRepository.findAll()).hasSize(6);
+        Assertions.assertThat(userRepository.findAll()).hasSize(1);
 
         this.userTest.setUsername("Modified username");
         this.userTest.setCity("Modified city");
 
         userRepository.save(this.userTest);
         entityManager.flush();
-        Assertions.assertThat(userRepository.findAll()).hasSize(6);
+        Assertions.assertThat(userRepository.findAll()).hasSize(1);
         Assertions.assertThat((userRepository.findByUsername(this.userTest.getUsername())))
                 .extracting("username", "email", "city")
                 .contains(this.userTest.getUsername(), this.userTest.getEmail(), this.userTest.getCity());

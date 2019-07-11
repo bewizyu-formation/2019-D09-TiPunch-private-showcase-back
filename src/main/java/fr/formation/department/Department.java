@@ -33,9 +33,6 @@ public class Department {
     @Column(name="name_soundex")
     private String name_soundex;
 
-    /*@ManyToMany(mappedBy="departments")
-    private Set<ArtistDetail> artistDetails;*/
-
     public Department(){}
 
     @Override

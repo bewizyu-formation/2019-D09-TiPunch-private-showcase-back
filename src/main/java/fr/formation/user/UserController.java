@@ -25,7 +25,6 @@ public class UserController {
 	 */
 	@PutMapping("/")
 	public void signup(@RequestBody UserDto userDto) {
-		System.out.println("Signup : " + userDto.getUsername() + " " + userDto.getPassword());
 		if(userService.findByUsername(userDto.getUsername()) == null) {
 			userService.addNewUser(userDto.getUsername(), userDto.getPassword(), userDto.getEmail(), userDto.getCity(), userDto.getRoles());
 		} else {
@@ -41,7 +40,6 @@ public class UserController {
 	 */
 	@GetMapping("/{username}")
 	public User findByUsername(@PathVariable String username) {
-		System.out.println("findByUsername méthode");
 		User user = userService.findByUsername(username);
 		if(user == null) {
 			throw new NotFoundException("Username " + username + " not found in the database");

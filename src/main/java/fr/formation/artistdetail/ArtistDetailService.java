@@ -1,16 +1,11 @@
 package fr.formation.artistdetail;
 
 import fr.formation.artist.Artist;
-import fr.formation.artist.ArtistRepository;
-import fr.formation.artist.ArtistService;
-import fr.formation.artistdepartment.ArtistDepartment;
 import fr.formation.department.Department;
 import fr.formation.department.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -39,17 +34,6 @@ public class ArtistDetailService {
         artistDetail.setNbVotes(0);
         artistDetail.setTotalVotes(0);
 
-        /*
-        List<ArtistDepartment> artistDepartments = new ArrayList<>();
-        for(String departmentName : departmentNames) {
-            Department department = departmentService.findByName(departmentName);
-            artistDepartments.add(new ArtistDepartment(department.getName(), department.getCode(), artistDetail));
-        }
-        artistDetail.setArtistDepartments(artistDepartments);
-
-        System.out.println(artistDepartments.get(0));
-        */
-
         Set<Department> departments = new HashSet<>();
         for(String departmentName : departmentNames) {
             departments.add(departmentService.findByName(departmentName));
@@ -66,8 +50,6 @@ public class ArtistDetailService {
      * @return
      */
     public List<ArtistDetail> findAllByDepartment(Department department){
-        /*ArtistDepartment artistDepartment = new ArtistDepartment(department.getName(), department.getCode());
-        return artistDetailRepository.findAllByArtistDepartments(artistDepartment);*/
         return artistDetailRepository.findAllByDepartment(department);
     }
 }

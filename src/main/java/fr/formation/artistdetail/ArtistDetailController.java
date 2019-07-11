@@ -49,8 +49,6 @@ public class ArtistDetailController {
     public List<ArtistDetail> getAllArtistDetailsByUserLocation(@PathVariable String departmentName){
         Department department = departmentService.findByName(departmentName);
 
-        System.out.println(department);
-
         List<ArtistDetail> artistDetails;
         if(department != null) {
             artistDetails = artistDetailService.findAllByDepartment(department);

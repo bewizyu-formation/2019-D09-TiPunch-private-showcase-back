@@ -1,11 +1,9 @@
 package fr.formation.artistdetail;
 
 import fr.formation.artist.Artist;
-import fr.formation.artistdepartment.ArtistDepartment;
 import fr.formation.department.Department;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -40,10 +38,6 @@ public class ArtistDetail {
     @OneToOne
     private Artist artiste;
 
-    /*
-    @OneToMany(mappedBy = "artistDetail")
-    private List<ArtistDepartment> artistDepartments;
-    */
 
     @ManyToMany
     @JoinTable(name = "artistdetail_department",
