@@ -39,6 +39,7 @@ public class ArtistDetailService {
         artistDetail.setNbVotes(0);
         artistDetail.setTotalVotes(0);
 
+        /*
         List<ArtistDepartment> artistDepartments = new ArrayList<>();
         for(String departmentName : departmentNames) {
             Department department = departmentService.findByName(departmentName);
@@ -47,6 +48,14 @@ public class ArtistDetailService {
         artistDetail.setArtistDepartments(artistDepartments);
 
         System.out.println(artistDepartments.get(0));
+        */
+
+        Set<Department> departments = new HashSet<>();
+        for(String departmentName : departmentNames) {
+            departments.add(departmentService.findByName(departmentName));
+        }
+
+        artistDetail.setDepartments(departments);
 
         artistDetailRepository.save(artistDetail);
 
@@ -57,7 +66,8 @@ public class ArtistDetailService {
      * @return
      */
     public List<ArtistDetail> findAllByDepartment(Department department){
-        ArtistDepartment artistDepartment = new ArtistDepartment(department.getName(), department.getCode());
-        return artistDetailRepository.findAllByArtistDepartments(artistDepartment);
+        /*ArtistDepartment artistDepartment = new ArtistDepartment(department.getName(), department.getCode());
+        return artistDetailRepository.findAllByArtistDepartments(artistDepartment);*/
+        return artistDetailRepository.findAllByDepartment(department);
     }
 }

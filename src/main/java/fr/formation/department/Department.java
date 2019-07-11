@@ -4,6 +4,7 @@ import fr.formation.artistdetail.ArtistDetail;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 /**
  * Type of Department
@@ -32,8 +33,18 @@ public class Department {
     @Column(name="name_soundex")
     private String name_soundex;
 
+    /*@ManyToMany(mappedBy="departments")
+    private Set<ArtistDetail> artistDetails;*/
 
     public Department(){}
+
+    @Override
+    public String toString() {
+        return "Department{" +
+                "name='" + name + '\'' +
+                ", code='" + code + '\'' +
+                '}';
+    }
 
     public Long getId() {
         return id;
@@ -82,5 +93,6 @@ public class Department {
     public void setName_soundex(String name_soundex) {
         this.name_soundex = name_soundex;
     }
+
 
 }

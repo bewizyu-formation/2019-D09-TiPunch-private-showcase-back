@@ -40,21 +40,19 @@ public class ArtistDetail {
     @OneToOne
     private Artist artiste;
 
+    /*
     @OneToMany(mappedBy = "artistDetail")
     private List<ArtistDepartment> artistDepartments;
+    */
+
+    @ManyToMany
+    @JoinTable(name = "artistdetail_department",
+        joinColumns = @JoinColumn(name="id_artistdetail", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "id_department", referencedColumnName = "id"))
+    private Set<Department> departments;
 
     public ArtistDetail(){}
 
-    public ArtistDetail(Byte[] photo, String longDescription, String site, int phoneNumber, int nbVotes, int totalVotes, Artist artiste, List<ArtistDepartment> artistDepartments) {
-        this.photo = photo;
-        this.longDescription = longDescription;
-        this.site = site;
-        this.phoneNumber = phoneNumber;
-        this.nbVotes = nbVotes;
-        this.totalVotes = totalVotes;
-        this.artiste = artiste;
-        this.artistDepartments = artistDepartments;
-    }
 
     @Override
     public String toString() {
@@ -127,11 +125,11 @@ public class ArtistDetail {
         this.artiste = artiste;
     }
 
-    public List<ArtistDepartment> getArtistDepartments() {
-        return artistDepartments;
+    public Set<Department> getDepartments() {
+        return departments;
     }
 
-    public void setArtistDepartments(List<ArtistDepartment> artistDepartments) {
-        this.artistDepartments = artistDepartments;
+    public void setDepartments(Set<Department> departments) {
+        this.departments = departments;
     }
 }
