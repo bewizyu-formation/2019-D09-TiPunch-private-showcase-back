@@ -63,9 +63,8 @@ public class ArtistDetailController {
     }
 
     @GetMapping("/locate")
-    public List<ArtistDetail> getAllArtistDetailsByLocalization(@RequestParam String longitude, @RequestParam String latitude){
-
-        artistDetailService.findAllByLocalization(longitude, latitude);
+    public void getAllArtistDetailsByLocalization(@RequestParam String latitude, @RequestParam String longitude){
+        artistDetailService.findAllByLocalization(latitude, longitude);
 
         List<ArtistDetail> artistDetails = new ArrayList<>();
         /*
@@ -74,7 +73,7 @@ public class ArtistDetailController {
         } else {
             throw new NotFoundException("Department " + departmentName + " not found in the departments list");
         }*/
-        return artistDetails;
+
     }
 
 

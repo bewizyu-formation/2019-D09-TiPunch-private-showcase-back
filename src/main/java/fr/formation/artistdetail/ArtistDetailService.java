@@ -1,20 +1,23 @@
 package fr.formation.artistdetail;
 
+import com.byteowls.jopencage.JOpenCageGeocoder;
+import com.byteowls.jopencage.model.JOpenCageResponse;
+import com.byteowls.jopencage.model.JOpenCageReverseRequest;
 import fr.formation.artist.Artist;
 import fr.formation.department.Department;
 import fr.formation.department.DepartmentService;
-import fr.formation.geo.GeoApiConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.ArrayList;
+
+import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @Service
+@Transactional
 public class ArtistDetailService {
 
     @Autowired
@@ -61,22 +64,23 @@ public class ArtistDetailService {
     }
 
 
-    public List<ArtistDetail> findAllByLocalization(String longitude, String latitude) {
+    public void findAllByLocalization(String latitude, String longitude) {
 
-        UriComponentsBuilder builder = UriComponentsBuilder
-                .fromUriString(GeoGoogleApiConstants.GEO_GOOGLE_API_BASE_URL)
-                .queryParam(GeoGoogleApiConstants.PARAM_LAT_LONG, longitude + "," + latitude)
-                .queryParam(GeoGoogleApiConstants.PARAM_KEY, GeoGoogleApiConstants.VALUE_KEY);
+        JOpenCageGeocoder jOpenCageGeocoder = new JOpenCageGeocoder(GeoGoogleApiConstants.VALUE_KEY);
+
+        JOpenCageReverseRequest request = new JOpenCageReverseRequest(Double.parseDouble(latitude), Double.parseDouble(longitude));
+        request.setLanguage("fr"); // prioritize results in a specific language using an IETF format language code
+        request.setNoAnnotations(true); // exclude additional info such as calling code, timezone, and currency
+
+        JOpenCageResponse response = jOpenCageGeocoder.reverse(request);
+
+        // get the formatted address of the first result:
+        String formattedAddress = response.getResults().get(0).getFormatted();
+
+        System.out.println(formattedAddress);
 
 
-        System.out.println(this.restTemplate.getForObject(
-                builder.toUriString(),
-                List.class)
-        );
 
 
-
-
-        return new ArrayList<ArtistDetail>();
     }
 }

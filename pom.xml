@@ -71,7 +71,24 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.byteowls</groupId>
+			<artifactId>jopencage</artifactId>
+			<version>1.0.3</version>
+		</dependency>
 	</dependencies>
+
+	<repositories>
+		<!-- ... other repository elements ... -->
+		<repository>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>central</id>
+			<name>bintray</name>
+			<url>http://jcenter.bintray.com</url>
+		</repository>
+	</repositories>
 
 	<!-- Package as an executable jar -->
 	<build>
