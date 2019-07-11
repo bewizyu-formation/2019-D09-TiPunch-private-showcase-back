@@ -8,10 +8,11 @@ import fr.formation.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/artistsDetails")
+@RequestMapping("/artistdetails")
 public class ArtistDetailController {
 
     @Autowired
@@ -21,22 +22,32 @@ public class ArtistDetailController {
     private ArtistService artistService;
 
     @Autowired
-    private DepartmentService departementService;
+    private DepartmentService departmentService;
 
     @PutMapping("/")
     public void putArtistDetail(@RequestBody ArtistDetailDto artistDetailDto) {
         Artist artist = artistService.findByUsername(artistDetailDto.getUsername());
         if(artist != null) {
-            artistDetailService.addNewArtistDetail(artist, artistDetailDto.getPhoto(), artistDetailDto.getLongDescription(), artistDetailDto.getSite(), artistDetailDto.getPhoneNumber(), artistDetailDto.getDepartments());
+            artistDetailService.addNewArtistDetail(artist, artistDetailDto.getPhoto(), artistDetailDto.getLongDescription(), artistDetailDto.getSite(), artistDetailDto.getPhoneNumber(), artistDetailDto.getDepartmentNames());
         } else {
             throw new NotFoundException("Artist not found with username : " + artistDetailDto.getUsername());
         }
     }
 
+    @GetMapping("/")
+    public List<ArtistDetail> findAllArtistDetails() {
+        return artistDetailService.findAll();
+    }
+
+    @GetMapping("/departments")
+    public List<Department> findAllDepartments() {
+        return departmentService.findAll();
+    }
+
     @GetMapping("/{departmentName}")
-    public Set<ArtistDetail> getAllArtistDetailsByUserLocation(@PathVariable String departmentName){
-        Department department = departementService.findByName(departmentName);
-        Set<ArtistDetail> artistDetails;
+    public List<ArtistDetail> getAllArtistDetailsByUserLocation(@PathVariable String departmentName){
+        Department department = departmentService.findByName(departmentName);
+        List<ArtistDetail> artistDetails;
         if(department != null) {
             artistDetails = artistDetailService.findAllByDepartment(department);
         } else {

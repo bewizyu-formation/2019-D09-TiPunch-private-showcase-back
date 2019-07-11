@@ -1,12 +1,10 @@
 package fr.formation.artistdetail;
 
-import fr.formation.department.Department;
-
-import java.util.Set;
+import java.util.List;
 
 public class ArtistDetailDto {
 
-    private Byte[] photo;
+    private String photo;
 
     private String longDescription;
 
@@ -16,16 +14,16 @@ public class ArtistDetailDto {
 
     private String username;
 
-    private Set<Department> departments;
+    private List<String> departmentNames;
 
     public ArtistDetailDto() {
     }
 
-    public Byte[] getPhoto() {
+    public String getPhoto() {
         return photo;
     }
 
-    public void setPhoto(Byte[] photo) {
+    public void setPhoto(String photo) {
         this.photo = photo;
     }
 
@@ -61,11 +59,11 @@ public class ArtistDetailDto {
         this.username = username;
     }
 
-    public Set<Department> getDepartments() {
-        return departments;
+    public List<String> getDepartmentNames() {
+        return departmentNames;
     }
 
-    public void setDepartments(Set<Department> departments) {
-        this.departments = departments;
+    public void setDepartmentNames(List<String> departmentNames) {
+        this.departmentNames = departmentNames;
     }
 }

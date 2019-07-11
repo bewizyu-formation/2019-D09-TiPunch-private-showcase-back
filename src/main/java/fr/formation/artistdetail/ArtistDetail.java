@@ -1,16 +1,18 @@
 package fr.formation.artistdetail;
 
 import fr.formation.artist.Artist;
+import fr.formation.artistdepartment.ArtistDepartment;
 import fr.formation.department.Department;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 /**
  * The type Artist Detail.
  */
 @Entity
-@Table(name = "artistdetail")
+@Table(name = "artist_detail")
 public class ArtistDetail {
 
     @Id
@@ -39,11 +41,11 @@ public class ArtistDetail {
     private Artist artiste;
 
     @OneToMany(mappedBy = "artistDetail")
-    private Set<Department> departments;
+    private List<ArtistDepartment> artistDepartments;
 
     public ArtistDetail(){}
 
-    public ArtistDetail(Byte[] photo, String longDescription, String site, int phoneNumber, int nbVotes, int totalVotes, Artist artiste, Set<Department> departments) {
+    public ArtistDetail(Byte[] photo, String longDescription, String site, int phoneNumber, int nbVotes, int totalVotes, Artist artiste, List<ArtistDepartment> artistDepartments) {
         this.photo = photo;
         this.longDescription = longDescription;
         this.site = site;
@@ -51,7 +53,14 @@ public class ArtistDetail {
         this.nbVotes = nbVotes;
         this.totalVotes = totalVotes;
         this.artiste = artiste;
-        this.departments = departments;
+        this.artistDepartments = artistDepartments;
+    }
+
+    @Override
+    public String toString() {
+        return "ArtistDetail{" +
+                "artiste=" + artiste +
+                '}';
     }
 
     public Long getId() {
@@ -118,11 +127,11 @@ public class ArtistDetail {
         this.artiste = artiste;
     }
 
-    public Set<Department> getDepartments() {
-        return departments;
+    public List<ArtistDepartment> getArtistDepartments() {
+        return artistDepartments;
     }
 
-    public void setDepartments(Set<Department> departments) {
-        this.departments = departments;
+    public void setArtistDepartments(List<ArtistDepartment> artistDepartments) {
+        this.artistDepartments = artistDepartments;
     }
 }

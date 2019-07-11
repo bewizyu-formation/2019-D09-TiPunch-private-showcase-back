@@ -94,8 +94,6 @@ public class UserService implements UserDetailsService {
 			userRoleRepository.save(userRole);
 		}
 
-		System.out.println("Création du user : " + user.getUsername() + " " + user.getPassword());
-
 	}
 
 	/**

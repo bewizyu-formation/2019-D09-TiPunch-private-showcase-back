@@ -13,7 +13,6 @@ import javax.validation.constraints.NotNull;
 public class Department {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name="name")
@@ -24,22 +23,17 @@ public class Department {
     @NotNull
     private String code;
 
-    @ManyToOne
-    @JoinColumn(name="id_artistdetail")
-    private ArtistDetail artistDetail;
+    @Column(name="name_uppercase")
+    private String name_uppercase;
+
+    @Column(name="slug")
+    private String slug;
+
+    @Column(name="name_soundex")
+    private String name_soundex;
+
 
     public Department(){}
-
-    public Department(@NotNull String name, @NotNull String code) {
-        this.name = name;
-        this.code = code;
-    }
-
-    public Department(@NotNull String name, @NotNull String code, ArtistDetail artistDetail) {
-        this.name = name;
-        this.code = code;
-        this.artistDetail = artistDetail;
-    }
 
     public Long getId() {
         return id;
@@ -65,11 +59,28 @@ public class Department {
         this.code = code;
     }
 
-    public ArtistDetail getArtistDetail() {
-        return artistDetail;
+    public String getName_uppercase() {
+        return name_uppercase;
     }
 
-    public void setArtistDetail(ArtistDetail artistDetail) {
-        this.artistDetail = artistDetail;
+    public void setName_uppercase(String name_uppercase) {
+        this.name_uppercase = name_uppercase;
     }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
+    public String getName_soundex() {
+        return name_soundex;
+    }
+
+    public void setName_soundex(String name_soundex) {
+        this.name_soundex = name_soundex;
+    }
+
 }
