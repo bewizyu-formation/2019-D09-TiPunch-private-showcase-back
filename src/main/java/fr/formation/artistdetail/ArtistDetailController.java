@@ -8,7 +8,10 @@ import fr.formation.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 @RestController
@@ -23,6 +26,7 @@ public class ArtistDetailController {
 
     @Autowired
     private DepartmentService departmentService;
+
 
     @PutMapping("/")
     public void putArtistDetail(@RequestBody ArtistDetailDto artistDetailDto) {
@@ -46,7 +50,7 @@ public class ArtistDetailController {
 
 
     @GetMapping("/{departmentName}")
-    public List<ArtistDetail> getAllArtistDetailsByUserLocation(@PathVariable String departmentName){
+    public List<ArtistDetail> getAllArtistDetailsByUserLocation( @PathVariable String departmentName){
         Department department = departmentService.findByName(departmentName);
 
         List<ArtistDetail> artistDetails;
@@ -57,4 +61,24 @@ public class ArtistDetailController {
         }
         return artistDetails;
     }
+
+    @GetMapping("/locate")
+    public List<ArtistDetail> getAllArtistDetailsByLocalization(@RequestParam String longitude, @RequestParam String latitude){
+
+        artistDetailService.findAllByLocalization(longitude, latitude);
+
+        List<ArtistDetail> artistDetails = new ArrayList<>();
+        /*
+        if(department != null) {
+            artistDetails = artistDetailService.findAllByDepartment(department);
+        } else {
+            throw new NotFoundException("Department " + departmentName + " not found in the departments list");
+        }*/
+        return artistDetails;
+    }
+
+
+
+
+
 }

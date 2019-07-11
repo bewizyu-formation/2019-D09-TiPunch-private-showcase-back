@@ -3,9 +3,13 @@ package fr.formation.artistdetail;
 import fr.formation.artist.Artist;
 import fr.formation.department.Department;
 import fr.formation.department.DepartmentService;
+import fr.formation.geo.GeoApiConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -18,6 +22,9 @@ public class ArtistDetailService {
 
     @Autowired
     private DepartmentService departmentService;
+
+    @Autowired
+    RestTemplate restTemplate;
 
 
     public List<ArtistDetail> findAll() {
@@ -51,5 +58,25 @@ public class ArtistDetailService {
      */
     public List<ArtistDetail> findAllByDepartment(Department department){
         return artistDetailRepository.findAllByDepartment(department);
+    }
+
+
+    public List<ArtistDetail> findAllByLocalization(String longitude, String latitude) {
+
+        UriComponentsBuilder builder = UriComponentsBuilder
+                .fromUriString(GeoGoogleApiConstants.GEO_GOOGLE_API_BASE_URL)
+                .queryParam(GeoGoogleApiConstants.PARAM_LAT_LONG, longitude + "," + latitude)
+                .queryParam(GeoGoogleApiConstants.PARAM_KEY, GeoGoogleApiConstants.VALUE_KEY);
+
+
+        System.out.println(this.restTemplate.getForObject(
+                builder.toUriString(),
+                List.class)
+        );
+
+
+
+
+        return new ArrayList<ArtistDetail>();
     }
 }
