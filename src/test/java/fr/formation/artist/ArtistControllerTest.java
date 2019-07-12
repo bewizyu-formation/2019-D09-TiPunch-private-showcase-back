@@ -74,7 +74,7 @@ public class ArtistControllerTest {
      */
     @Test
     public void findAll() throws Exception {
-        ResultActions str = getRequest("/artists/")
+        getRequest("/artists/")
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(artistRepository.findAll())));
     }

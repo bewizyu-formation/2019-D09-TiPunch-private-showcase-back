@@ -25,13 +25,13 @@ public class Department {
     private String code;
 
     @Column(name="name_uppercase")
-    private String name_uppercase;
+    private String nameUppercase;
 
     @Column(name="slug")
     private String slug;
 
     @Column(name="name_soundex")
-    private String name_soundex;
+    private String nameSoundex;
 
     public Department(){}
 
@@ -67,12 +67,12 @@ public class Department {
         this.code = code;
     }
 
-    public String getName_uppercase() {
-        return name_uppercase;
+    public String getNameUppercase() {
+        return nameUppercase;
     }
 
-    public void setName_uppercase(String name_uppercase) {
-        this.name_uppercase = name_uppercase;
+    public void setNameUppercase(String nameUppercase) {
+        this.nameUppercase = nameUppercase;
     }
 
     public String getSlug() {
@@ -83,13 +83,11 @@ public class Department {
         this.slug = slug;
     }
 
-    public String getName_soundex() {
-        return name_soundex;
+    public String getNameSoundex() {
+        return nameSoundex;
     }
 
-    public void setName_soundex(String name_soundex) {
-        this.name_soundex = name_soundex;
+    public void setNameSoundex(String nameSoundex) {
+        this.nameSoundex = nameSoundex;
     }
-
-
 }

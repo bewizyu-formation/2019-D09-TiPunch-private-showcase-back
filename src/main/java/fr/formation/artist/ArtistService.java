@@ -4,6 +4,7 @@ import fr.formation.user.User;
 import fr.formation.user.UserRole;
 import fr.formation.user.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +17,9 @@ public class ArtistService {
 
     @Autowired
     private UserRoleRepository userRoleRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     /**
      * Return a list of all artists.
@@ -40,7 +44,7 @@ public class ArtistService {
     public void addNewUserArtist(String username, String password, String email, String city, String name, String description, String... roles) {
         Artist artist = new Artist();
         artist.setUsername(username);
-        artist.setPassword(password);
+        artist.setPassword(passwordEncoder.encode(password));
         artist.setEmail(email);
         artist.setCity(city);
         artist.setName(name);
