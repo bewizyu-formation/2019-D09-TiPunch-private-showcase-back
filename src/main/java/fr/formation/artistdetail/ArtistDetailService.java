@@ -2,7 +2,7 @@ package fr.formation.artistdetail;
 
 import fr.formation.artist.Artist;
 import fr.formation.department.Department;
-import fr.formation.department.DepartmentService;
+import fr.formation.department.DepartmentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ public class ArtistDetailService {
     private ArtistDetailRepository artistDetailRepository;
 
     @Autowired
-    private DepartmentService departmentService;
+    private DepartmentServiceImpl departmentServiceImpl;
 
 
     public List<ArtistDetail> findAll() {
@@ -36,7 +36,7 @@ public class ArtistDetailService {
 
         Set<Department> departments = new HashSet<>();
         for(String departmentName : departmentNames) {
-            departments.add(departmentService.findByName(departmentName));
+            departments.add(departmentServiceImpl.findByName(departmentName));
         }
 
         artistDetail.setDepartments(departments);

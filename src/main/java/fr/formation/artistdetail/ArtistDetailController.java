@@ -3,13 +3,12 @@ package fr.formation.artistdetail;
 import fr.formation.artist.Artist;
 import fr.formation.artist.ArtistService;
 import fr.formation.department.Department;
-import fr.formation.department.DepartmentService;
+import fr.formation.department.DepartmentServiceImpl;
 import fr.formation.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/artistdetails")
@@ -22,7 +21,7 @@ public class ArtistDetailController {
     private ArtistService artistService;
 
     @Autowired
-    private DepartmentService departmentService;
+    private DepartmentServiceImpl departmentServiceImpl;
 
     @PutMapping("/")
     public void putArtistDetail(@RequestBody ArtistDetailDto artistDetailDto) {
@@ -41,13 +40,13 @@ public class ArtistDetailController {
 
     @GetMapping("/departments")
     public List<Department> findAllDepartments() {
-        return departmentService.findAll();
+        return departmentServiceImpl.findAll();
     }
 
 
     @GetMapping("/{departmentName}")
     public List<ArtistDetail> getAllArtistDetailsByUserLocation(@PathVariable String departmentName){
-        Department department = departmentService.findByName(departmentName);
+        Department department = departmentServiceImpl.findByName(departmentName);
 
         List<ArtistDetail> artistDetails;
         if(department != null) {

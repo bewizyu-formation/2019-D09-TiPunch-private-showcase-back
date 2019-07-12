@@ -1,6 +1,7 @@
 package fr.formation;
 
 import fr.formation.artist.ArtistService;
+import fr.formation.artistdetail.ArtistDetailService;
 import fr.formation.security.SecurityConstants;
 import fr.formation.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,9 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * This class configure the dataset at application start
@@ -21,6 +25,8 @@ public class BoostrapData {
 
 	private PasswordEncoder passwordEncoder;
 
+	private ArtistDetailService artistDetailService;
+
 	/**
 	 * Instantiates a new Boostrap data.
 	 *
@@ -28,10 +34,11 @@ public class BoostrapData {
 	 * @param passwordEncoder the password encoder
 	 */
 	@Autowired
-	public BoostrapData(UserService userService, PasswordEncoder passwordEncoder, ArtistService artistService) {
+	public BoostrapData(UserService userService, PasswordEncoder passwordEncoder, ArtistService artistService, ArtistDetailService artistDetailService) {
 		this.userService = userService;
 		this.passwordEncoder = passwordEncoder;
 		this.artistService = artistService;
+		this.artistDetailService = artistDetailService;
 	}
 
 	/**
@@ -74,6 +81,16 @@ public class BoostrapData {
 				"Je suis l'artist 2 et je m'éclate dans tout ce que je fais",
 				SecurityConstants.ROLE_USER
 		);
+
+		artistDetailService.addNewArtistDetail(
+				artistService.findByUsername("artist2"),
+				"photo",
+				"Une description détaillée de l'artiste2 lui-même, soumise par l'artiste et mettant en valeur son talent.",
+				"www.artiste2.com",
+				612345678,
+				new ArrayList<String>(Arrays.asList("Ain", "Rhône"))
+		);
+
 
 
 	}

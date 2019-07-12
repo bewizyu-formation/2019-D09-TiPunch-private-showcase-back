@@ -1,22 +1,10 @@
 package fr.formation.department;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 
-@Service
-public class DepartmentService {
+public interface DepartmentService {
 
-    @Autowired
-    private DepartmentRepository departmentRepository;
+    Department findByName(String name);
 
-    public Department findByName(String name) {
-        return departmentRepository.findByName(name);
-    }
-
-    public List<Department> findAll() {
-        return departmentRepository.findAll();
-    }
-
+    List<Department> findAll();
 }
