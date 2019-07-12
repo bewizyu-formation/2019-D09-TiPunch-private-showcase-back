@@ -62,9 +62,9 @@ public class ArtistDetailRepositoryTest {
 
     @Test
     public void saveTest() {
-        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(1);
+        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(0);
         artistDetailRepository.save(artistDetailTest);
-        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(2);
+        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(1);
     }
 
     @Test
@@ -82,10 +82,10 @@ public class ArtistDetailRepositoryTest {
     public void delete() {
         artistDetailRepository.save(artistDetailTest);
         entityManager.flush();
-        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(2);
+        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(1);
         artistDetailRepository.delete(artistDetailTest);
         entityManager.flush();
-        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(1);
+        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(0);
 
     }
 
@@ -93,7 +93,7 @@ public class ArtistDetailRepositoryTest {
     public void update(){
         artistDetailRepository.save(this.artistDetailTest);
         entityManager.flush();
-        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(2);
+        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(1);
 
         this.artistDetailTest.setSite("www.updatedwebsite.com");
 
