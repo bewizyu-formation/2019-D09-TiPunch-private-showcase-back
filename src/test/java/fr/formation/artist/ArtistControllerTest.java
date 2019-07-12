@@ -52,7 +52,7 @@ public class ArtistControllerTest {
      */
     @Before
     public void init() throws Exception{
-        MvcResult mvcResult = mvc.perform(formLogin("/login").user("artist1").password("Artist12")).andReturn();
+        MvcResult mvcResult = mvc.perform(formLogin("/login").user("admin").password("Admin1234")).andReturn();
         this.authorizationHeader = mvcResult.getResponse().getHeader("Authorization");
 
         this.artistDto = new ArtistDto("artist3", "Artiste34", "email@email.fr", "Paris", "artist3", "Je suis l'artiste 3 et je m'éclate dans tout ce que je fais", new String[]{SecurityConstants.ROLE_USER});
