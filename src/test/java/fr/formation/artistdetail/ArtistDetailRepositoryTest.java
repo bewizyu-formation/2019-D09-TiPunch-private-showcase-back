@@ -99,7 +99,7 @@ public class ArtistDetailRepositoryTest {
 
         artistDetailRepository.save(this.artistDetailTest);
         entityManager.flush();
-        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(2);
+        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(1);
         Assertions.assertThat(artistDetailRepository.findById(this.artistDetailTest.getId()))
                 .get()
                 .extracting("site")
