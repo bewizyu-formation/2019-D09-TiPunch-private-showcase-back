@@ -104,13 +104,13 @@ public class ArtistDetailControllerTest {
 
     @Test
     public void putArtistDetail() throws Exception {
-        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(2);
+        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(1);
         mvc.perform(put("/artistdetails/")
                 .header("Authorization", this.authorizationHeader)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(this.artistDetailDtoTest)))
                 .andExpect(status().isOk());
-        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(3);
+        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(2);
     }
 
     @Test
