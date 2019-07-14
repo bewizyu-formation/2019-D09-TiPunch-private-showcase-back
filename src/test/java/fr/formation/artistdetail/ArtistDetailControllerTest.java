@@ -129,7 +129,7 @@ public class ArtistDetailControllerTest {
     @Test
     public void getAllArtistDetailsByUserLocation() throws Exception {
         artistDetailRepository.save(artistDetailTest);
-        Assertions.assertThat(artistRepository.findAll()).hasSize(3);
+        Assertions.assertThat(artistRepository.findAll()).hasSize(2);
         getRequest("/artistdetails/Isère")
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(new ArtistDetail[]{artistDetailTest})));
