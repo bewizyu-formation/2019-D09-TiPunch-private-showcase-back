@@ -1,16 +1,23 @@
 package fr.formation.artistdetail;
 
+import com.byteowls.jopencage.JOpenCageGeocoder;
+import com.byteowls.jopencage.model.JOpenCageResponse;
+import com.byteowls.jopencage.model.JOpenCageReverseRequest;
 import fr.formation.artist.Artist;
 import fr.formation.department.Department;
 import fr.formation.department.DepartmentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+
+import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @Service
+@Transactional
 public class ArtistDetailService {
 
     @Autowired
@@ -18,6 +25,9 @@ public class ArtistDetailService {
 
     @Autowired
     private DepartmentServiceImpl departmentServiceImpl;
+
+    @Autowired
+    RestTemplate restTemplate;
 
 
     public List<ArtistDetail> findAll() {
@@ -51,5 +61,26 @@ public class ArtistDetailService {
      */
     public List<ArtistDetail> findAllByDepartment(Department department){
         return artistDetailRepository.findAllByDepartment(department);
+    }
+
+
+    public void findAllByLocalization(String latitude, String longitude) {
+
+        JOpenCageGeocoder jOpenCageGeocoder = new JOpenCageGeocoder(GeoGoogleApiConstants.VALUE_KEY);
+
+        JOpenCageReverseRequest request = new JOpenCageReverseRequest(Double.parseDouble(latitude), Double.parseDouble(longitude));
+        request.setLanguage("fr"); // prioritize results in a specific language using an IETF format language code
+        request.setNoAnnotations(true); // exclude additional info such as calling code, timezone, and currency
+
+        JOpenCageResponse response = jOpenCageGeocoder.reverse(request);
+
+        // get the formatted address of the first result:
+        String formattedAddress = response.getResults().get(0).getFormatted();
+
+        System.out.println(formattedAddress);
+
+
+
+
     }
 }
