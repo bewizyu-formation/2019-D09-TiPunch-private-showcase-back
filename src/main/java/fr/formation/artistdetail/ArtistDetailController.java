@@ -4,18 +4,16 @@ import fr.formation.artist.Artist;
 import fr.formation.artist.ArtistService;
 import fr.formation.department.Department;
 import fr.formation.department.DepartmentServiceImpl;
+import fr.formation.exception.LocalizationException;
 import fr.formation.exception.NotFoundException;
+import fr.formation.user.User;
+import fr.formation.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 import java.util.List;
-<<<<<<< HEAD
-=======
-import java.util.Locale;
-import java.util.Set;
->>>>>>> 7e8eb849c63bcef7357b1b435b2de7240dffa94a
+
 
 @RestController
 @RequestMapping("/artistdetails")
@@ -26,6 +24,9 @@ public class ArtistDetailController {
 
     @Autowired
     private ArtistService artistService;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private DepartmentServiceImpl departmentServiceImpl;
@@ -54,7 +55,7 @@ public class ArtistDetailController {
 
     @GetMapping("/{departmentName}")
 
-    public List<ArtistDetail> getAllArtistDetailsByUserLocation(@PathVariable String departmentName){
+    public List<ArtistDetail> getAllArtistDetailsByDepartmentName(@PathVariable String departmentName){
         Department department = departmentServiceImpl.findByName(departmentName);
         
         List<ArtistDetail> artistDetails;
@@ -66,17 +67,29 @@ public class ArtistDetailController {
         return artistDetails;
     }
 
-    @GetMapping("/locate")
-    public void getAllArtistDetailsByLocalization(@RequestParam String latitude, @RequestParam String longitude){
-        artistDetailService.findAllByLocalization(latitude, longitude);
-
+    @GetMapping("/{username}/localization")
+    public List<ArtistDetail> getAllArtistDetailsByLocalization(@PathVariable String username, @RequestParam String latitude, @RequestParam String longitude){
         List<ArtistDetail> artistDetails = new ArrayList<>();
-        /*
-        if(department != null) {
-            artistDetails = artistDetailService.findAllByDepartment(department);
-        } else {
-            throw new NotFoundException("Department " + departmentName + " not found in the departments list");
-        }*/
+
+        if(latitude.equals("-100") || longitude.equals("-200")) {
+            User user = userService.findByUsername(username);
+            if(user == null) {
+                throw new NotFoundException("Username " + username + " not found.");
+            }
+            artistDetails = artistDetailService.findAllByLocalization(user.getCity());
+
+        }else {
+            try {
+                artistDetails = artistDetailService.findAllByLocalization(latitude, longitude);
+            } catch (NotFoundException e) {
+                throw new NotFoundException(e.getMessage());
+            } catch (LocalizationException e) {
+                throw new LocalizationException(e.getMessage());
+            }
+        }
+
+        return artistDetails;
+
 
     }
 

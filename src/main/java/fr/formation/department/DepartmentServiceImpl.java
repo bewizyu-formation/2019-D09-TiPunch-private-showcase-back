@@ -16,6 +16,8 @@ public class DepartmentServiceImpl implements DepartmentService {
         return departmentRepository.findByName(name);
     }
 
+    public Department findByCode(String code) { return departmentRepository.findByCode(code); }
+
     public List<Department> findAll() {
         return departmentRepository.findAll();
     }

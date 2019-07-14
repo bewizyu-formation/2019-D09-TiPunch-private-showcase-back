@@ -6,15 +6,18 @@ import com.byteowls.jopencage.model.JOpenCageReverseRequest;
 import fr.formation.artist.Artist;
 import fr.formation.department.Department;
 import fr.formation.department.DepartmentServiceImpl;
+import fr.formation.exception.LocalizationException;
+import fr.formation.exception.NotFoundException;
+import fr.formation.geo.model.Commune;
+import fr.formation.geo.services.CommuneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 
+import javax.swing.text.html.HTMLDocument;
 import javax.transaction.Transactional;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @Transactional
@@ -25,6 +28,9 @@ public class ArtistDetailService {
 
     @Autowired
     private DepartmentServiceImpl departmentServiceImpl;
+
+    @Autowired
+    private CommuneService communeService;
 
     @Autowired
     RestTemplate restTemplate;
@@ -64,7 +70,7 @@ public class ArtistDetailService {
     }
 
 
-    public void findAllByLocalization(String latitude, String longitude) {
+    public List<ArtistDetail> findAllByLocalization(String latitude, String longitude) throws LocalizationException, NotFoundException {
 
         JOpenCageGeocoder jOpenCageGeocoder = new JOpenCageGeocoder(GeoGoogleApiConstants.VALUE_KEY);
 
@@ -79,7 +85,54 @@ public class ArtistDetailService {
 
         System.out.println(formattedAddress);
 
+        String departmentCode = "00";
 
+        try {
+            String[] cutAddress = formattedAddress.split(",");
+
+            departmentCode = cutAddress[cutAddress.length - 2].trim().substring(0, 2);
+        } catch (IndexOutOfBoundsException e) {
+            throw new LocalizationException("Error reading address : " + formattedAddress);
+        }
+
+        System.out.println("department code : " + departmentCode);
+
+        Department department = departmentServiceImpl.findByCode(departmentCode);
+
+        if(department == null) {
+            throw new NotFoundException("Code department " + departmentCode + " not found in the departments list");
+        }
+
+        System.out.println("departement : " + department);
+
+        return findAllByDepartment(department);
+
+    }
+
+    public List<ArtistDetail> findAllByLocalization(String city) throws NotFoundException {
+
+        List<Commune> communes = communeService.getCommunes(city);
+
+        System.out.println(communeService.getCommunes(city));
+
+        if(communes.size() == 0) {
+            throw new NotFoundException("Commune " + city + " not found.");
+        }
+
+        Optional<Commune> commune = communes.stream().filter(c -> c.getNom().equals(city)).findFirst();
+
+        System.out.println("commune obtenue à partir du compte de l'utilisateur : " + commune.get());
+
+        System.out.println("code département : " + commune.get().getCodeDepartement() + " | code commune : " + commune.get().getCode());
+        Department department = departmentServiceImpl.findByCode(commune.get().getCodeDepartement());
+
+        System.out.println("department " + department);
+
+        if(department == null) {
+            throw new NotFoundException("Code department " + communes.get(0).getCodeDepartement() + " not found in the departments list");
+        }
+
+        return findAllByDepartment(department);
 
 
     }
