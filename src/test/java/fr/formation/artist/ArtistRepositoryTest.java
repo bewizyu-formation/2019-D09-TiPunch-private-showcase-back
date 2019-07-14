@@ -14,7 +14,7 @@ import javax.persistence.EntityManager;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-@ComponentScan
+@ComponentScan({"fr.formation.artist.ArtistRepository", "fr.formation.artistdetail.ArtistDetailRepository"})
 public class ArtistRepositoryTest {
 
     public final String[] ENGLISH_ERROR_MSGS = {"must not be null", "must be a well-formed email address", "size must be between " + ArtistConstants.MIN_LENGTH + " and " + ArtistConstants.MAX_LENGTH, "size must be between " + ArtistConstants.MIN_DESC + " and " + ArtistConstants.MAX_DESC};

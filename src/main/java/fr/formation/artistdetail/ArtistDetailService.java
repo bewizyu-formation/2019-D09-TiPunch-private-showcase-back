@@ -24,6 +24,26 @@ public class ArtistDetailService {
         return artistDetailRepository.findAll();
     }
 
+    public void addNewArtistDetail(Artist artist, ArtistDetailDto adDto) {
+        ArtistDetail artistDetail = new ArtistDetail();
+        artistDetail.setArtiste(artist);
+        //artistDetail.setPhoto(adDto.getPhoto());
+        artistDetail.setLongDescription(adDto.getLongDescription());
+        artistDetail.setSite(adDto.getSite());
+        artistDetail.setPhoneNumber(adDto.getPhoneNumber());
+        artistDetail.setNbVotes(0);
+        artistDetail.setTotalVotes(0);
+
+        Set<Department> departments = new HashSet<>();
+        for(String departmentName : adDto.getDepartmentNames()) {
+            departments.add(departmentServiceImpl.findByName(departmentName));
+        }
+
+        artistDetail.setDepartments(departments);
+
+        artistDetailRepository.save(artistDetail);
+    }
+
     public void addNewArtistDetail(Artist artist, String photo, String longDescription, String site, int phoneNumber, List<String> departmentNames) {
         ArtistDetail artistDetail = new ArtistDetail();
         artistDetail.setArtiste(artist);

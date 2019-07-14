@@ -27,7 +27,7 @@ public class ArtistDetailController {
     public void putArtistDetail(@RequestBody ArtistDetailDto artistDetailDto) {
         Artist artist = artistService.findByUsername(artistDetailDto.getUsername());
         if(artist != null) {
-            artistDetailService.addNewArtistDetail(artist, artistDetailDto.getPhoto(), artistDetailDto.getLongDescription(), artistDetailDto.getSite(), artistDetailDto.getPhoneNumber(), artistDetailDto.getDepartmentNames());
+            artistDetailService.addNewArtistDetail(artist, artistDetailDto);
         } else {
             throw new NotFoundException("Artist not found with username : " + artistDetailDto.getUsername());
         }

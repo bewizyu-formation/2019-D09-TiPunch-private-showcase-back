@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 
-@Service
+@Service("departmentServiceImpl")
 public class DepartmentServiceImpl implements DepartmentService {
 
     @Autowired

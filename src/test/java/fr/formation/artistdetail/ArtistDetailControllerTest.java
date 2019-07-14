@@ -104,13 +104,13 @@ public class ArtistDetailControllerTest {
 
     @Test
     public void putArtistDetail() throws Exception {
-        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(1);
+        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(2);
         mvc.perform(put("/artistdetails/")
                 .header("Authorization", this.authorizationHeader)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(this.artistDetailDtoTest)))
                 .andExpect(status().isOk());
-        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(2);
+        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(3);
     }
 
     @Test
@@ -129,7 +129,7 @@ public class ArtistDetailControllerTest {
     @Test
     public void getAllArtistDetailsByUserLocation() throws Exception {
         artistDetailRepository.save(artistDetailTest);
-        Assertions.assertThat(artistRepository.findAll()).hasSize(2);
+        Assertions.assertThat(artistRepository.findAll()).hasSize(3);
         getRequest("/artistdetails/Isère")
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(new ArtistDetail[]{artistDetailTest})));
