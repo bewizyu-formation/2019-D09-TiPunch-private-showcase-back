@@ -62,16 +62,16 @@ public class ArtistDetailRepositoryTest {
 
     @Test
     public void saveTest() {
-        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(1);
+        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(5);
         artistDetailRepository.save(artistDetailTest);
-        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(2);
+        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(6);
     }
 
     @Test
     public void findAll() {
         artistDetailRepository.save(artistDetailTest);
         Assertions.assertThat(artistDetailRepository.findAll())
-                .hasSize(2)
+                .hasSize(6)
                 .extracting("longDescription", "phoneNumber")
                 .contains(Tuple.tuple(
                         this.artistDetailTest.getLongDescription(),
@@ -81,21 +81,21 @@ public class ArtistDetailRepositoryTest {
     @Test
     public void delete() {
         artistDetailRepository.save(artistDetailTest);
-        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(2);
+        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(6);
         artistDetailRepository.delete(artistDetailTest);
-        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(1);
+        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(5);
 
     }
 
     @Test
     public void update(){
         artistDetailRepository.save(this.artistDetailTest);
-        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(2);
+        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(6);
 
         this.artistDetailTest.setSite("www.updatedwebsite.com");
 
         artistDetailRepository.save(this.artistDetailTest);
-        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(2);
+        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(6);
         Assertions.assertThat(artistDetailRepository.findById(this.artistDetailTest.getId()))
                 .get()
                 .extracting("site")

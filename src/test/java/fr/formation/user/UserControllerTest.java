@@ -76,12 +76,12 @@ public class UserControllerTest {
      */
     @Test
     public void signup() throws Exception{
-        Assertions.assertThat(userRepository.findAll()).hasSize(5);
+        Assertions.assertThat(userRepository.findAll()).hasSize(8);
         mvc.perform(put("/users/")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(this.userDto)))
                 .andExpect(status().isOk());
-        Assertions.assertThat(userRepository.findAll()).hasSize(6);
+        Assertions.assertThat(userRepository.findAll()).hasSize(9);
 
     }
 
@@ -91,14 +91,14 @@ public class UserControllerTest {
      */
     @Test
     public void signupWithUsernameThatAlreadyExists() throws Exception{
-        Assertions.assertThat(userRepository.findAll()).hasSize(5);
+        Assertions.assertThat(userRepository.findAll()).hasSize(8);
         this.userDto.setUsername("user");
         mvc.perform(put("/users/")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(this.userDto)))
                 .andExpect(status().is(401))
                 .andExpect(content().json("{\"message\":\"The username user already exist.\"}", false));
-        Assertions.assertThat(userRepository.findAll()).hasSize(5);
+        Assertions.assertThat(userRepository.findAll()).hasSize(8);
     }
 
     /**

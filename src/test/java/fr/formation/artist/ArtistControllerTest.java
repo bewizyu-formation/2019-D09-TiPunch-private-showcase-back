@@ -84,12 +84,12 @@ public class ArtistControllerTest {
      */
     @Test
     public void signup() throws Exception{
-        Assertions.assertThat(artistRepository.findAll()).hasSize(2);
+        Assertions.assertThat(artistRepository.findAll()).hasSize(6);
         mvc.perform(put("/artists/")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(this.artistDto)))
                 .andExpect(status().isOk());
-        Assertions.assertThat(artistRepository.findAll()).hasSize(3);
+        Assertions.assertThat(artistRepository.findAll()).hasSize(7);
     }
 
     /**
@@ -98,13 +98,13 @@ public class ArtistControllerTest {
      */
     @Test
     public void signupWithUsernameThatAlreadyExists() throws Exception{
-        Assertions.assertThat(artistRepository.findAll()).hasSize(2);
-        this.artistDto.setUsername("artist1");
+        Assertions.assertThat(artistRepository.findAll()).hasSize(6);
+        this.artistDto.setUsername("echo");
         mvc.perform(put("/artists/")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(this.artistDto)))
                 .andExpect(status().is(401))
-                .andExpect(content().json("{\"message\":\"The username artist1 already exist.\"}", false));
-        Assertions.assertThat(artistRepository.findAll()).hasSize(2);
+                .andExpect(content().json("{\"message\":\"The username echo already exist.\"}", false));
+        Assertions.assertThat(artistRepository.findAll()).hasSize(6);
     }
 }

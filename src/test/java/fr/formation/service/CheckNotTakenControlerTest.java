@@ -74,7 +74,7 @@ public class CheckNotTakenControlerTest {
     @Test
     public void checkArtistNameWhenExist() throws Exception {
         //By default, the value of artistNameNotTaken is false when CheckUniqueDto is instantiate
-        mvc.perform(get("/checknottaken/artistname/" + "Artist 1"))
+        mvc.perform(get("/checknottaken/artistname/" + "Artiste Test"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(this.check)));
     }
