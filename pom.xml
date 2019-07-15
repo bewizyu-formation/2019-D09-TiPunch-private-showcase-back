@@ -24,6 +24,19 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
+
+	<repositories>
+		<!-- ... other repository elements ... -->
+		<repository>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>central</id>
+			<name>bintray</name>
+			<url>http://jcenter.bintray.com</url>
+		</repository>
+	</repositories>
+
 	<!-- Add typical dependencies for a web application -->
 	<dependencies>
 		<dependency>
@@ -83,17 +96,6 @@
         </dependency>
     </dependencies>
 
-	<repositories>
-		<!-- ... other repository elements ... -->
-		<repository>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<id>central</id>
-			<name>bintray</name>
-			<url>http://jcenter.bintray.com</url>
-		</repository>
-	</repositories>
 
 	<!-- Package as an executable jar -->
 	<build>
