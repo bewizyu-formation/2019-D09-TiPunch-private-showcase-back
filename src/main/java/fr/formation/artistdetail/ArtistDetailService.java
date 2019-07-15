@@ -3,6 +3,8 @@ package fr.formation.artistdetail;
 import com.byteowls.jopencage.JOpenCageGeocoder;
 import com.byteowls.jopencage.model.JOpenCageResponse;
 import com.byteowls.jopencage.model.JOpenCageReverseRequest;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.formation.artist.Artist;
 import fr.formation.department.Department;
 import fr.formation.department.DepartmentServiceImpl;
@@ -14,8 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-
-import javax.swing.text.html.HTMLDocument;
 import javax.transaction.Transactional;
 import java.util.*;
 
@@ -34,6 +34,9 @@ public class ArtistDetailService {
 
     @Autowired
     RestTemplate restTemplate;
+
+    @Autowired
+    ObjectMapper objectMapper;
 
 
     public List<ArtistDetail> findAll() {
@@ -83,8 +86,6 @@ public class ArtistDetailService {
         // get the formatted address of the first result:
         String formattedAddress = response.getResults().get(0).getFormatted();
 
-        System.out.println(formattedAddress);
-
         String departmentCode = "00";
 
         try {
@@ -94,8 +95,6 @@ public class ArtistDetailService {
         } catch (IndexOutOfBoundsException e) {
             throw new LocalizationException("Error reading address : " + formattedAddress);
         }
-
-        System.out.println("department code : " + departmentCode);
 
         Department department = departmentServiceImpl.findByCode(departmentCode);
 
@@ -111,9 +110,7 @@ public class ArtistDetailService {
 
     public List<ArtistDetail> findAllByLocalization(String city) throws NotFoundException {
 
-        List<Commune> communes = communeService.getCommunes(city);
-
-        System.out.println(communeService.getCommunes(city));
+        List<Commune> communes = objectMapper.convertValue(communeService.getCommunes(city), new TypeReference<List<Commune>>(){});
 
         if(communes.size() == 0) {
             throw new NotFoundException("Commune " + city + " not found.");
@@ -121,19 +118,12 @@ public class ArtistDetailService {
 
         Optional<Commune> commune = communes.stream().filter(c -> c.getNom().equals(city)).findFirst();
 
-        System.out.println("commune obtenue à partir du compte de l'utilisateur : " + commune.get());
-
-        System.out.println("code département : " + commune.get().getCodeDepartement() + " | code commune : " + commune.get().getCode());
         Department department = departmentServiceImpl.findByCode(commune.get().getCodeDepartement());
-
-        System.out.println("department " + department);
 
         if(department == null) {
             throw new NotFoundException("Code department " + communes.get(0).getCodeDepartement() + " not found in the departments list");
         }
-
         return findAllByDepartment(department);
-
 
     }
 }

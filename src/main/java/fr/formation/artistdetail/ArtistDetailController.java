@@ -9,7 +9,9 @@ import fr.formation.exception.NotFoundException;
 import fr.formation.user.User;
 import fr.formation.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.spi.service.contexts.SecurityContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,11 +69,12 @@ public class ArtistDetailController {
         return artistDetails;
     }
 
-    @GetMapping("/{username}/localization")
-    public List<ArtistDetail> getAllArtistDetailsByLocalization(@PathVariable String username, @RequestParam String latitude, @RequestParam String longitude){
+    @GetMapping("/localization")
+    public List<ArtistDetail> getAllArtistDetailsByLocalization(@RequestParam String latitude, @RequestParam String longitude){
         List<ArtistDetail> artistDetails = new ArrayList<>();
 
         if(latitude.equals("-100") || longitude.equals("-200")) {
+            String username = SecurityContextHolder.getContext().getAuthentication().getName();
             User user = userService.findByUsername(username);
             if(user == null) {
                 throw new NotFoundException("Username " + username + " not found.");
