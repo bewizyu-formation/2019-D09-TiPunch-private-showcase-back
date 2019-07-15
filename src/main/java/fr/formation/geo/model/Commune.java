@@ -16,6 +16,12 @@ public class Commune implements Serializable {
 
 	private Set<String> codesPostaux;
 
+	private String codeRegion;
+
+	private Integer population;
+
+	private Double _score;
+
 	/**
 	 * Instantiates a new Commune.
 	 *
@@ -24,11 +30,14 @@ public class Commune implements Serializable {
 	 * @param codeDepartement the code departement
 	 * @param codesPostaux    the codes postaux
 	 */
-	public Commune(String nom, String code, String codeDepartement, Set<String> codesPostaux) {
+	public Commune(String nom, String code, Set<String> codesPostaux, String codeDepartement, String codeRegion, Integer population, Double _score ) {
 		this.nom = nom;
 		this.code = code;
 		this.codeDepartement = codeDepartement;
 		this.codesPostaux = codesPostaux;
+		this.codeRegion = codeRegion;
+		this._score = _score;
+		this.population = population;
 	}
 
 	/**
@@ -107,6 +116,30 @@ public class Commune implements Serializable {
 	 */
 	public void setCodesPostaux(Set<String> codesPostaux) {
 		this.codesPostaux = codesPostaux;
+	}
+
+	public String getCodeRegion() {
+		return codeRegion;
+	}
+
+	public void setCodeRegion(String codeRegion) {
+		this.codeRegion = codeRegion;
+	}
+
+	public Integer getPopulation() {
+		return population;
+	}
+
+	public void setPopulation(Integer population) {
+		this.population = population;
+	}
+
+	public Double get_score() {
+		return _score;
+	}
+
+	public void set_score(Double _score) {
+		this._score = _score;
 	}
 }
 

@@ -1,0 +1,553 @@
+{
+	"info": {
+		"_postman_id": "a342dace-5812-40f3-bfe2-c3b0afd3ef2f",
+		"name": "PrivateShowCase User",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Hello",
+			"item": [
+				{
+					"name": "Hello User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status is 200\"] = responseCode.code == \"200\""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{tokenUser}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/hello/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hello",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Hello Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status is 403\"] = responseCode.code == \"403\""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{tokenUser}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/hello/admin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hello",
+								"admin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Save New User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status is 200\"] = responseCode.code == \"200\"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\":\"UserU\",\n\t\"password\":\"UserU123\",\n\t\"email\":\"useru@email.fr\",\n\t\"city\":\"Paris\",\n\t\"roles\":[\"ROLE_USER\"]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/users/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find All Users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status is 200\"] = responseCode.code == \"200\";"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{tokenUser}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/users/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Artist",
+			"item": [
+				{
+					"name": "Save New Artist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status is 200\"] = responseCode.code == \"200\"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\":\"ArtistA\",\n\t\"password\":\"ArtistA1\",\n\t\"email\":\"artista@email.fr\",\n\t\"city\":\"Lyon\",\n\t\"name\":\"NameA\",\n\t\"description\":\"Je suis un artiste complet !\",\n\t\"roles\":[\"ROLE_USER\"]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/artists/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"artists",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find All Artists",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status is 200\"] = responseCode.code == \"200\";",
+									"",
+									"",
+									"",
+									"postman.getGlobalVariable(\"variable_key\");"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{tokenUser}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/artists/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"artists",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ArtistDetail",
+			"item": [
+				{
+					"name": "Save New ArtistDetail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e5c9f3a2-0eb5-42c9-97b1-60aaff7326fa",
+								"exec": [
+									"tests[\"Status is 200\"] = responseCode.code == \"200\"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{tokenUser2}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\":\"artist1\",\n\t\"photo\":\"MaPhoto\",\n\t\"longDescription\":\"Une description détaillée de l'artiste lui-même ou du groupe, soumise par l'artiste et mettant en valeur son talent.\",\n\t\"site\":\"jhttp://jesuisunartiste.fr\",\n\t\"phoneNumber\":\"0102030405\",\n\t\"departmentNames\":[\"Vaucluse\", \"Isère\", \"Bouches-du-Rhône\"]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/artistdetails/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"artistdetails",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find All ArtistDetails",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status is 200\"] = responseCode.code == \"200\";"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{tokenUser}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/artistdetails/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"artistdetails",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find ArtistDetails By Department",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status is 200\"] = responseCode.code == \"200\";"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{tokenUser}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/artistdetails/Vaucluse",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"artistdetails",
+								"Vaucluse"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find All Departments",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status is 200\"] = responseCode.code == \"200\";"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{tokenUser}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/artistdetails/departments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"artistdetails",
+								"departments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find ArtistDetails By Localization",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7dbe3259-7e87-438c-aa03-4b614180ee48",
+								"exec": [
+									"tests[\"Status is 200\"] = responseCode.code == \"200\";"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{tokenUser}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/artistdetails/localization?latitude=45.7605259&longitude=4.7909059",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"artistdetails",
+								"localization"
+							],
+							"query": [
+								{
+									"key": "latitude",
+									"value": "45.7605259"
+								},
+								{
+									"key": "longitude",
+									"value": "4.7909059"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find ArtistDetails Without Localization",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7dbe3259-7e87-438c-aa03-4b614180ee48",
+								"exec": [
+									"tests[\"Status is 200\"] = responseCode.code == \"200\";"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{tokenUser}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/artistdetails/localization?latitude=-100&longitude=-200",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"artistdetails",
+								"localization"
+							],
+							"query": [
+								{
+									"key": "latitude",
+									"value": "-100"
+								},
+								{
+									"key": "longitude",
+									"value": "-200"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7b96c249-1cc3-4659-b92c-5e5179dba403",
+						"exec": [
+							"",
+							"var headerJwtUser = responseHeaders['Authorization'];",
+							"postman.setGlobalVariable('tokenUser', headerJwtUser);",
+							"",
+							"postman.setEnvironmentVariable('tokenUser2', headerJwtUser);",
+							"",
+							"tests[\"Status is 200\"] = responseCode.code == \"200\";"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"username\":\"artist1\", \"password\":\"Artist12\"}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

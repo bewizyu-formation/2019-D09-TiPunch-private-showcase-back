@@ -6,5 +6,7 @@ public interface DepartmentService {
 
     Department findByName(String name);
 
+    Department findByCode(String code);
+
     List<Department> findAll();
 }

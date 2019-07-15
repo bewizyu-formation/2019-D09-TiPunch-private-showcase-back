@@ -1,5 +1,6 @@
 package fr.formation.artistdetail;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import fr.formation.artist.Artist;
 import fr.formation.department.Department;
 
@@ -18,7 +19,7 @@ public class ArtistDetail {
     private Long id;
 
     @Column(name="photo")
-    private Byte[] photo;
+    private String photo;
 
     @Column(name="longDescription")
     private String longDescription;
@@ -36,13 +37,14 @@ public class ArtistDetail {
     private int totalVotes;
 
     @OneToOne
-    private Artist artiste;
+    private Artist artist;
 
 
     @ManyToMany
     @JoinTable(name = "artistdetail_department",
         joinColumns = @JoinColumn(name="id_artistdetail", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(name = "id_department", referencedColumnName = "id"))
+    @JsonIgnore
     private Set<Department> departments;
 
     public ArtistDetail(){}
@@ -51,7 +53,7 @@ public class ArtistDetail {
     @Override
     public String toString() {
         return "ArtistDetail{" +
-                "artiste=" + artiste +
+                "artiste=" + artist +
                 '}';
     }
 
@@ -63,11 +65,11 @@ public class ArtistDetail {
         this.id = id;
     }
 
-    public Byte[] getPhoto() {
+    public String getPhoto() {
         return photo;
     }
 
-    public void setPhoto(Byte[] photo) {
+    public void setPhoto(String photo) {
         this.photo = photo;
     }
 
@@ -111,12 +113,12 @@ public class ArtistDetail {
         this.totalVotes = totalVotes;
     }
 
-    public Artist getArtiste() {
-        return artiste;
+    public Artist getArtist() {
+        return artist;
     }
 
-    public void setArtiste(Artist artiste) {
-        this.artiste = artiste;
+    public void setArtist(Artist artist) {
+        this.artist = artist;
     }
 
     public Set<Department> getDepartments() {

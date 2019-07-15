@@ -34,6 +34,16 @@ public class ExceptionController {
     }
 
     /**
+     * Error response to REST request if the adress can't be read (if it isn't to the fomat : "18 Rue de la Garde, 69005 Lyon, France"
+     * @param e LocalizationException
+     * @return a ResponseEntity with an error status and error message and date in the body.
+     */
+    @ExceptionHandler(LocalizationException.class)
+    public ResponseEntity<ErrorDto> handle(LocalizationException e){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDto(e.getMessage()));
+    }
+
+    /**
      * DTO class used to transmit the error message and date
      */
     private class ErrorDto{

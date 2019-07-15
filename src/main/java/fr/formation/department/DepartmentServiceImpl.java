@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 
-@Service("departmentServiceImpl")
+@Service
 public class DepartmentServiceImpl implements DepartmentService {
 
     @Autowired
@@ -15,6 +15,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     public Department findByName(String name) {
         return departmentRepository.findByName(name);
     }
+
+    public Department findByCode(String code) { return departmentRepository.findByCode(code); }
 
     public List<Department> findAll() {
         return departmentRepository.findAll();

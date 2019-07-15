@@ -74,7 +74,7 @@ public class ArtistDetailControllerTest {
         this.artist = artistRepository.findByName("Artist 1");
 
         this.artistDetailTest = new ArtistDetail();
-        artistDetailTest.setArtiste(artist);
+        artistDetailTest.setArtist(artist);
         artistDetailTest.setLongDescription("Description longue de l'artiste.");
         artistDetailTest.setSite("www.monsiteartisteperso.com");
         artistDetailTest.setPhoneNumber(0605040302);
@@ -127,7 +127,7 @@ public class ArtistDetailControllerTest {
     }
 
     @Test
-    public void getAllArtistDetailsByUserLocation() throws Exception {
+    public void findAllArtistDetailsByUserLocation() throws Exception {
         artistDetailRepository.save(artistDetailTest);
         Assertions.assertThat(artistRepository.findAll()).hasSize(2);
         getRequest("/artistdetails/Isère")
@@ -135,4 +135,42 @@ public class ArtistDetailControllerTest {
                 .andExpect(content().json(objectMapper.writeValueAsString(new ArtistDetail[]{artistDetailTest})));
         artistDetailRepository.delete(artistDetailTest);
     }
+
+    @Test
+    public void findAllArtistDetailsByUserLocationWithBadDeprtmentName() throws Exception {
+        artistDetailRepository.save(artistDetailTest);
+        Assertions.assertThat(artistRepository.findAll()).hasSize(2);
+        getRequest("/artistdetails/Isre")
+                .andExpect(status().is(404))
+                .andExpect(content().json("{\"message\":\"Department " + "Isre" + " not found in the departments list\"}"));
+        artistDetailRepository.delete(artistDetailTest);
+    }
+
+    @Test
+    public void findAllArtistDetailsByLocalization() throws Exception {
+        ArtistDetail response = artistDetailRepository.findByArtist(artistRepository.findByName("Artiste 2"));
+        getRequest("/artistdetails/localization?latitude=45.7605259&longitude=4.7909059")
+                .andExpect(status().isOk())
+                .andExpect(content().json(objectMapper.writeValueAsString(new ArrayList<ArtistDetail>(Arrays.asList(response)))));
+    }
+
+    @Test
+    public void findAllArtistDetailsByLocalizationWithDefaultLocalization() throws Exception {
+        ArtistDetail response = artistDetailRepository.findByArtist(artistRepository.findByName("Artiste 2"));
+        getRequest("/artistdetails/localization?latitude=-100&longitude=-200")
+                .andExpect(status().isOk())
+                .andExpect(content().json("[]"));
+    }
+
+    @Test
+    public void findAllArtistDetailsByLocalizationWithLocalizationOutOfFrance() throws Exception {
+        ArtistDetail response = artistDetailRepository.findByArtist(artistRepository.findByName("Artiste 2"));
+        getRequest("/artistdetails/localization?latitude=4.7909059&longitude=45.7605259")
+                .andExpect(status().is(404))
+                .andExpect(content().json("{\"message\":\"Code department Be not found in the departments list\"}", false));
+    }
+
+
+
+
 }
