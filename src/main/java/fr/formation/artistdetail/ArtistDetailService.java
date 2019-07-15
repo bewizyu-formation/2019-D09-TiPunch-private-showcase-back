@@ -36,6 +36,7 @@ public class ArtistDetailService {
     @Autowired
     private CommuneServiceImpl communeServiceImpl;
 
+
     @Autowired
     RestTemplate restTemplate;
 
@@ -147,6 +148,7 @@ public class ArtistDetailService {
     public List<ArtistDetail> findAllByLocalization(String city) throws NotFoundException {
 
         List<Commune> communes = objectMapper.convertValue(communeServiceImpl.getCommunes(city), new TypeReference<List<Commune>>(){});
+
 
         if(communes.size() == 0) {
             throw new NotFoundException("Commune " + city + " not found.");
