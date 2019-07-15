@@ -63,7 +63,7 @@ public class ArtistDetailService {
     public void addNewArtistDetail(Artist artist, String photo, String longDescription, String site, int phoneNumber, List<String> departmentNames) {
         ArtistDetail artistDetail = new ArtistDetail();
         artistDetail.setArtist(artist);
-        //artistDetail.setPhoto(photo);
+        artistDetail.setPhoto(photo);
         artistDetail.setLongDescription(longDescription);
         artistDetail.setSite(site);
         artistDetail.setPhoneNumber(phoneNumber);

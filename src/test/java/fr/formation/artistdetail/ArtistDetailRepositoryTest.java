@@ -116,10 +116,4 @@ public class ArtistDetailRepositoryTest {
                 .contains(artistDetailTest);
 
     }
-
-    @Test
-    public void 
-
-
-
 }

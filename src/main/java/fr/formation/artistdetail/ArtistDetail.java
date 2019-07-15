@@ -1,5 +1,6 @@
 package fr.formation.artistdetail;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import fr.formation.artist.Artist;
 import fr.formation.department.Department;
 
@@ -18,7 +19,7 @@ public class ArtistDetail {
     private Long id;
 
     @Column(name="photo")
-    private Byte[] photo;
+    private String photo;
 
     @Column(name="longDescription")
     private String longDescription;
@@ -43,6 +44,7 @@ public class ArtistDetail {
     @JoinTable(name = "artistdetail_department",
         joinColumns = @JoinColumn(name="id_artistdetail", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(name = "id_department", referencedColumnName = "id"))
+    @JsonIgnore
     private Set<Department> departments;
 
     public ArtistDetail(){}
@@ -63,11 +65,11 @@ public class ArtistDetail {
         this.id = id;
     }
 
-    public Byte[] getPhoto() {
+    public String getPhoto() {
         return photo;
     }
 
-    public void setPhoto(Byte[] photo) {
+    public void setPhoto(String photo) {
         this.photo = photo;
     }
 
