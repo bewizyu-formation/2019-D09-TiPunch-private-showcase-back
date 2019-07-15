@@ -282,7 +282,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"username\":\"artist1\",\n\t\"photo\":\"MaPhoto\",\n\t\"longDescription\":\"Une description détaillée de l'artiste lui-même ou du groupe, soumise par l'artiste et mettant en valeur son talent.\",\n\t\"site\":\"jhttp://jesuisunartiste.fr\",\n\t\"phoneNumber\":\"0102030405\",\n\t\"departmentNames\":[\"Vaucluse\", \"Isère\", \"Bouches-du-Rhône\"]\n}"
+							"raw": "{\n\t\"username\":\"artistetest\",\n\t\"photo\":\"MaPhoto\",\n\t\"longDescription\":\"Une description détaillée de l'artiste lui-même ou du groupe, soumise par l'artiste et mettant en valeur son talent.\",\n\t\"site\":\"jhttp://jesuisunartiste.fr\",\n\t\"phoneNumber\":\"0102030405\",\n\t\"departmentNames\":[\"Vaucluse\", \"Isère\", \"Bouches-du-Rhône\"]\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/artistdetails/",
@@ -341,10 +341,11 @@
 						{
 							"listen": "test",
 							"script": {
-								"type": "text/javascript",
+								"id": "8ec3a96a-cc92-42b9-8e07-8dc516bf35e3",
 								"exec": [
 									"tests[\"Status is 200\"] = responseCode.code == \"200\";"
-								]
+								],
+								"type": "text/javascript"
 							}
 						}
 					],
@@ -357,7 +358,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8080/artistdetails/Vaucluse",
+							"raw": "http://localhost:8080/artistdetails/Rh%C3%B4ne",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -365,7 +366,7 @@
 							"port": "8080",
 							"path": [
 								"artistdetails",
-								"Vaucluse"
+								"Rh%C3%B4ne"
 							]
 						}
 					},
@@ -443,11 +444,13 @@
 							"query": [
 								{
 									"key": "latitude",
-									"value": "45.7605259"
+									"value": "45.7605259",
+									"description": "latitude de Lyon"
 								},
 								{
 									"key": "longitude",
-									"value": "4.7909059"
+									"value": "4.7909059",
+									"description": "longitude de Lyon"
 								}
 							]
 						}
@@ -490,12 +493,51 @@
 							"query": [
 								{
 									"key": "latitude",
-									"value": "-100"
+									"value": "-100",
+									"description": "=> utilisation ville de l'utilisateur connecté"
 								},
 								{
 									"key": "longitude",
 									"value": "-200"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find ArtistDetails By ArtistName",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "21d9a0fa-6cf7-48c4-8057-ff2904143e12",
+								"exec": [
+									"tests[\"Status is 200\"] = responseCode.code == \"200\";"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{tokenUser}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/artistdetails/artist/Cover Club",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"artistdetails",
+								"artist",
+								"Cover Club"
 							]
 						}
 					},
@@ -533,7 +575,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{ \"username\":\"artist1\", \"password\":\"Artist12\"}"
+					"raw": "{ \"username\":\"artistetest\", \"password\":\"User1234\"}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/login",
