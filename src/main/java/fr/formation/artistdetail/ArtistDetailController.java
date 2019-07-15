@@ -33,7 +33,10 @@ public class ArtistDetailController {
     @Autowired
     private DepartmentServiceImpl departmentServiceImpl;
 
-
+    /**
+     * Artist detail creation
+     * @param artistDetailDto
+     */
     @PutMapping("/")
     public void putArtistDetail(@RequestBody ArtistDetailDto artistDetailDto) {
         Artist artist = artistService.findByUsername(artistDetailDto.getUsername());
@@ -44,20 +47,45 @@ public class ArtistDetailController {
         }
     }
 
+    /**
+     * Find artist details by artist name
+     * @param artistName
+     */
+    @GetMapping("/{artistName}")
+    public ArtistDetail findByArtistName(@PathVariable String artistName) {
+        Artist artist = artistService.findByName(artistName);
+        if(artist == null) {
+            throw new NotFoundException("Artist " + artistName + " not found.");
+        }
+
+        return artistDetailService.findByArtist(artist);
+    }
+
+    /**
+     * Find all artist details
+     * @return
+     */
     @GetMapping("/")
     public List<ArtistDetail> findAllArtistDetails() {
         return artistDetailService.findAll();
     }
 
+    /**
+     * Find the list of department in the database
+     * @return list of artistDetail
+     */
     @GetMapping("/departments")
     public List<Department> findAllDepartments() {
         return departmentServiceImpl.findAll();
     }
 
-
+    /**
+     * Find the list of artist details including the department with department name
+     * @param departmentName
+     * @return list of artistDetail
+     */
     @GetMapping("/{departmentName}")
-
-    public List<ArtistDetail> getAllArtistDetailsByDepartmentName(@PathVariable String departmentName){
+    public List<ArtistDetail> findAllArtistDetailsByDepartmentName(@PathVariable String departmentName){
         Department department = departmentServiceImpl.findByName(departmentName);
         
         List<ArtistDetail> artistDetails;
@@ -69,8 +97,14 @@ public class ArtistDetailController {
         return artistDetails;
     }
 
+    /**
+     * Find the list of artist details including the department with localization
+     * @param latitude
+     * @param longitude
+     * @return list of artistDetail
+     */
     @GetMapping("/localization")
-    public List<ArtistDetail> getAllArtistDetailsByLocalization(@RequestParam String latitude, @RequestParam String longitude){
+    public List<ArtistDetail> findAllArtistDetailsByLocalization(@RequestParam String latitude, @RequestParam String longitude){
         List<ArtistDetail> artistDetails = new ArrayList<>();
 
         if(latitude.equals("-100") || longitude.equals("-200")) {
@@ -93,11 +127,7 @@ public class ArtistDetailController {
 
         return artistDetails;
 
-
     }
-
-
-
 
 
 }

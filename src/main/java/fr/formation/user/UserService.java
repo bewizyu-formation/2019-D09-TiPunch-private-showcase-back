@@ -31,6 +31,7 @@ public class UserService implements UserDetailsService {
 	 *
 	 * @param userRepository     the user repository
 	 * @param userRoleRepository the user role repository
+	 * @param passwordEncoder the password encoder
 	 */
 	@Autowired
 	public UserService(UserRepository userRepository, UserRoleRepository userRoleRepository, PasswordEncoder passwordEncoder) {

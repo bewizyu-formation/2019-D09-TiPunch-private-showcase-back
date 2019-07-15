@@ -430,7 +430,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8080/artistdetails/artist1/localization?latitude=45.7605259&longitude=4.7909059",
+							"raw": "http://localhost:8080/artistdetails/localization?latitude=45.7605259&longitude=4.7909059",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -438,7 +438,6 @@
 							"port": "8080",
 							"path": [
 								"artistdetails",
-								"artist1",
 								"localization"
 							],
 							"query": [
@@ -478,7 +477,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8080/artistdetails/artist1/localization?latitude=-100&longitude=-200",
+							"raw": "http://localhost:8080/artistdetails/localization?latitude=-100&longitude=-200",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -486,7 +485,6 @@
 							"port": "8080",
 							"path": [
 								"artistdetails",
-								"artist1",
 								"localization"
 							],
 							"query": [
@@ -535,7 +533,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{ \"username\":\"user\", \"password\":\"User1234\"}"
+					"raw": "{ \"username\":\"artist1\", \"password\":\"Artist12\"}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/login",

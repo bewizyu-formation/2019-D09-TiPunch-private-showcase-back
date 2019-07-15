@@ -19,6 +19,9 @@ import org.springframework.web.client.RestTemplate;
 import javax.transaction.Transactional;
 import java.util.*;
 
+/**
+ * The type ArtistDetail service.
+ */
 @Service
 @Transactional
 public class ArtistDetailService {
@@ -38,11 +41,25 @@ public class ArtistDetailService {
     @Autowired
     ObjectMapper objectMapper;
 
+    /**
+     * Find all artist details
+     * @return artist details list
+     */
 
     public List<ArtistDetail> findAll() {
         return artistDetailRepository.findAll();
     }
 
+    /**
+     * Add a new ArtistDetail with the artistDetail repository
+     *
+     * @param artist
+     * @param photo
+     * @param longDescription
+     * @param site
+     * @param phoneNumber
+     * @param departmentNames
+     */
     public void addNewArtistDetail(Artist artist, String photo, String longDescription, String site, int phoneNumber, List<String> departmentNames) {
         ArtistDetail artistDetail = new ArtistDetail();
         artistDetail.setArtiste(artist);
@@ -64,17 +81,28 @@ public class ArtistDetailService {
 
     }
 
+    public ArtistDetail findByArtist(Artist artist) {
+        return artistDetailRepository.findByArtist(artist);
+    }
+
     /**
-     * Get all artists details from departement that correspond to authenticated user location
-     * @return
+     * Get all artists details from department that correspond to authenticated user location
+     * @return list of artists details
      */
     public List<ArtistDetail> findAllByDepartment(Department department){
         return artistDetailRepository.findAllByDepartment(department);
     }
 
-
+    /**
+     * Find artists details from department that correspond to user localisation when connected
+     * @param latitude
+     * @param longitude
+     * @return list of artists details
+     * @throws LocalizationException
+     * @throws NotFoundException
+     */
     public List<ArtistDetail> findAllByLocalization(String latitude, String longitude) throws LocalizationException, NotFoundException {
-
+        //---------------- get adress with latitude and longitude
         JOpenCageGeocoder jOpenCageGeocoder = new JOpenCageGeocoder(GeoGoogleApiConstants.VALUE_KEY);
 
         JOpenCageReverseRequest request = new JOpenCageReverseRequest(Double.parseDouble(latitude), Double.parseDouble(longitude));
@@ -85,12 +113,12 @@ public class ArtistDetailService {
 
         // get the formatted address of the first result:
         String formattedAddress = response.getResults().get(0).getFormatted();
+        //------------------
 
         String departmentCode = "00";
-
         try {
             String[] cutAddress = formattedAddress.split(",");
-
+            //get department code when adress formated like "18 Rue de la Garde, 69005 Lyon, France"
             departmentCode = cutAddress[cutAddress.length - 2].trim().substring(0, 2);
         } catch (IndexOutOfBoundsException e) {
             throw new LocalizationException("Error reading address : " + formattedAddress);
@@ -105,9 +133,16 @@ public class ArtistDetailService {
         System.out.println("departement : " + department);
 
         return findAllByDepartment(department);
-
     }
 
+    /**
+     * Find artists details from department that correspond to user's city
+     * Used by default if the customer doesn't allow geolocation
+     *
+     * @param city
+     * @return list of artists details
+     * @throws NotFoundException
+     */
     public List<ArtistDetail> findAllByLocalization(String city) throws NotFoundException {
 
         List<Commune> communes = objectMapper.convertValue(communeService.getCommunes(city), new TypeReference<List<Commune>>(){});
@@ -126,4 +161,5 @@ public class ArtistDetailService {
         return findAllByDepartment(department);
 
     }
+
 }

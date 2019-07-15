@@ -116,4 +116,10 @@ public class ArtistDetailRepositoryTest {
                 .contains(artistDetailTest);
 
     }
+
+
+
+
+
+
 }
