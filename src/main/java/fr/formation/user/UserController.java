@@ -3,6 +3,7 @@ package fr.formation.user;
 import fr.formation.exception.AlreadyExistsException;
 import fr.formation.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -54,6 +55,20 @@ public class UserController {
 	@GetMapping("/")
 	public List<User> findAll() {
 		return userService.findAll();
+	}
+
+
+	@PutMapping("/update")
+	public void updateUser(@RequestParam String password, @RequestParam String email) {
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = userService.findByUsername(username);
+		if(user == null) {
+			throw new NotFoundException("Username " + username + " not found in the database");
+		}
+		user.setPassword(password);
+		user.setEmail(email);
+
+		userService.update(user);
 	}
 
 
