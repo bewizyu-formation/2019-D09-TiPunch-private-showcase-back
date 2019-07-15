@@ -1,128 +1,412 @@
 {
-	"info": {
-		"_postman_id": "6bf63111-23cb-4005-a93c-a2882e06657f",
-		"name": "PrivateShowCase User",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-	},
-	"item": [
+	"id": "091e4801-9d2f-ffd8-26b7-013809961ce2",
+	"name": "PrivateShowCase User",
+	"description": "",
+	"order": [
+		"747220de-b6ae-9832-ad80-d0e702aeb950"
+	],
+	"folders": [
 		{
-			"name": "Login User",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "1c483da9-683f-430c-a407-4021131a98d6",
-						"type": "text/javascript",
-						"exec": [
-							"var headerJwtUser = responseHeaders[\"Authorization\"]",
-							"postman.setEnvironmentVariable(\"tokenUser\", headerJwtUser);",
-							"",
-							""
-						]
-					}
-				}
+			"name": "Artist",
+			"description": "",
+			"collectionId": "091e4801-9d2f-ffd8-26b7-013809961ce2",
+			"order": [
+				"b9e4e821-7e77-b509-1767-b14994f15ba1",
+				"ee8946cc-da34-2108-9428-01980af18e33"
 			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{ \"username\":\"user\", \"password\":\"user\"}"
-				},
-				"url": {
-					"raw": "http://localhost:8080/login",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"login"
-					]
-				}
-			},
-			"response": []
+			"owner": 0,
+			"folders_order": [],
+			"id": "676257fe-8da1-0c36-1c1c-a39eef8873ff"
 		},
 		{
+			"name": "ArtistDetail",
+			"description": "",
+			"collectionId": "091e4801-9d2f-ffd8-26b7-013809961ce2",
+			"order": [
+				"716a38ff-7dbb-721f-e23b-6b99af22a78f",
+				"63130813-cd39-5c84-dd2d-981abd65fe99",
+				"884fba31-edaa-102a-c52d-ef4bbcf07021",
+				"1d1a6b97-a814-4eef-73a3-05800c4fc592"
+			],
+			"owner": 0,
+			"folders_order": [],
+			"id": "2b94f9d5-982a-593f-14d6-399fe6c7cac2"
+		},
+		{
+			"name": "Hello",
+			"description": "",
+			"collectionId": "091e4801-9d2f-ffd8-26b7-013809961ce2",
+			"order": [
+				"66617f87-016e-805b-e9b8-ad9fab2442ff",
+				"7f1aa6e7-c530-88f7-37ad-9368045ba8a7"
+			],
+			"owner": 0,
+			"folders_order": [],
+			"id": "9689ada9-16c4-4407-116a-a9b694e5c99f"
+		},
+		{
+			"name": "User",
+			"description": "",
+			"collectionId": "091e4801-9d2f-ffd8-26b7-013809961ce2",
+			"order": [
+				"a773f1fe-0738-1de2-4f9d-8d68f2992502",
+				"dc0bbc23-a93f-a194-c852-7d3233dcb85f"
+			],
+			"owner": 0,
+			"folders_order": [],
+			"id": "8494eb4c-77ce-13fe-84e1-7ab4a7da824a"
+		}
+	],
+	"folders_order": [
+		"9689ada9-16c4-4407-116a-a9b694e5c99f",
+		"8494eb4c-77ce-13fe-84e1-7ab4a7da824a",
+		"676257fe-8da1-0c36-1c1c-a39eef8873ff",
+		"2b94f9d5-982a-593f-14d6-399fe6c7cac2"
+	],
+	"timestamp": 0,
+	"owner": 0,
+	"public": false,
+	"requests": [
+		{
+			"id": "1d1a6b97-a814-4eef-73a3-05800c4fc592",
+			"headers": "Authorization: {{tokenUser}}\n",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "{{tokenUser}}",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/artistdetails/departments",
+			"folder": "2b94f9d5-982a-593f-14d6-399fe6c7cac2",
+			"queryParams": [],
+			"preRequestScript": "",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"tests": "tests[\"Status is 200\"] = responseCode.code == \"200\";",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1562838390282,
+			"name": "Find All Departments",
+			"description": "",
+			"collectionId": "091e4801-9d2f-ffd8-26b7-013809961ce2",
+			"responses": [],
+			"isFromCollection": true,
+			"collectionRequestId": "1d1a6b97-a814-4eef-73a3-05800c4fc592",
+			"rawModeData": "{\n\t\"username\":\"ArtistA\",\n\t\"password\":\"ArtistA1\",\n\t\"email\":\"artista@email.fr\",\n\t\"city\":\"Lyon\",\n\t\"name\":\"NameA\",\n\t\"description\":\"Je suis un artiste complet !\",\n\t\"roles\":[\"ROLE_USER\"]\n}"
+		},
+		{
+			"id": "63130813-cd39-5c84-dd2d-981abd65fe99",
+			"headers": "Authorization: {{tokenUser}}\n",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "{{tokenUser}}",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/artistdetails/",
+			"folder": "2b94f9d5-982a-593f-14d6-399fe6c7cac2",
+			"queryParams": [],
+			"preRequestScript": "",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"tests": "tests[\"Status is 200\"] = responseCode.code == \"200\";",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1562834994514,
+			"name": "Find All ArtistDetails",
+			"description": "",
+			"collectionId": "091e4801-9d2f-ffd8-26b7-013809961ce2",
+			"responses": [],
+			"isFromCollection": true,
+			"collectionRequestId": "63130813-cd39-5c84-dd2d-981abd65fe99",
+			"rawModeData": "{\n\t\"username\":\"ArtistA\",\n\t\"password\":\"ArtistA1\",\n\t\"email\":\"artista@email.fr\",\n\t\"city\":\"Lyon\",\n\t\"name\":\"NameA\",\n\t\"description\":\"Je suis un artiste complet !\",\n\t\"roles\":[\"ROLE_USER\"]\n}"
+		},
+		{
+			"id": "66617f87-016e-805b-e9b8-ad9fab2442ff",
 			"name": "Hello User",
-			"event": [
+			"description": "",
+			"collectionId": "091e4801-9d2f-ffd8-26b7-013809961ce2",
+			"method": "GET",
+			"headers": "Authorization: {{tokenUser}}",
+			"data": [],
+			"rawModeData": "",
+			"pathVariables": {},
+			"tests": "tests[\"Status is 200\"] = responseCode.code == \"200\"",
+			"preRequestScript": "",
+			"url": "http://localhost:8080/hello/user",
+			"responses": [],
+			"pathVariableData": [],
+			"queryParams": [],
+			"headerData": [
 				{
-					"listen": "test",
-					"script": {
-						"id": "4a5b2f2e-ce33-4541-828c-343517425479",
-						"type": "text/javascript",
-						"exec": [
-							"tests[\"Status is 200\"] = responseCode.code == \"200\""
-						]
-					}
+					"key": "Authorization",
+					"value": "{{tokenUser}}"
 				}
 			],
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "{{tokenUser}}"
-					}
-				],
-				"body": {},
-				"url": {
-					"raw": "http://localhost:8080/hello/user",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"hello",
-						"user"
-					]
-				}
-			},
-			"response": []
+			"collection_id": "091e4801-9d2f-ffd8-26b7-013809961ce2",
+			"folder": "9689ada9-16c4-4407-116a-a9b694e5c99f"
 		},
 		{
-			"name": "Hello Admin",
-			"event": [
+			"id": "716a38ff-7dbb-721f-e23b-6b99af22a78f",
+			"headers": "Content-Type: application/json\nAuthorization: {{tokenUser2}}\n",
+			"headerData": [
 				{
-					"listen": "test",
-					"script": {
-						"id": "f6f8d7bc-9e3b-4dde-bbb5-f4ae6469ac13",
-						"type": "text/javascript",
-						"exec": [
-							"tests[\"Status is 403\"] = responseCode.code == \"403\""
-						]
-					}
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Authorization",
+					"value": "{{tokenUser2}}",
+					"description": "",
+					"enabled": true
 				}
 			],
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "{{tokenUser}}"
-					}
-				],
-				"body": {},
-				"url": {
-					"raw": "http://localhost:8080/hello/admin",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"hello",
-						"admin"
-					]
+			"url": "http://localhost:8080/artistdetails/",
+			"folder": "2b94f9d5-982a-593f-14d6-399fe6c7cac2",
+			"queryParams": [],
+			"preRequestScript": "",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "PUT",
+			"data": [],
+			"dataMode": "raw",
+			"tests": "tests[\"Status is 200\"] = responseCode.code == \"200\"\n",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1562842711285,
+			"name": "Save New ArtistDetail",
+			"description": "",
+			"collectionId": "091e4801-9d2f-ffd8-26b7-013809961ce2",
+			"responses": [],
+			"isFromCollection": true,
+			"collectionRequestId": "716a38ff-7dbb-721f-e23b-6b99af22a78f",
+			"rawModeData": "{\n\t\"username\":\"artist1\",\n\t\"photo\":\"MaPhoto\",\n\t\"longDescription\":\"Une description détaillée de l'artiste lui-même ou du groupe, soumise par l'artiste et mettant en valeur son talent.\",\n\t\"site\":\"jhttp://jesuisunartiste.fr\",\n\t\"phoneNumber\":\"0102030405\",\n\t\"departmentNames\":[\"Vaucluse\", \"Isère\"]\n}"
+		},
+		{
+			"id": "747220de-b6ae-9832-ad80-d0e702aeb950",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
 				}
-			},
-			"response": []
+			],
+			"url": "http://localhost:8080/login",
+			"queryParams": [],
+			"preRequestScript": "",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": "var headerJwtUser = responseHeaders[\"authorization\"];\npostman.setGlobalVariable(\"tokenUser\", headerJwtUser);\n\n\n\npostman.setEnvironmentVariable(\"tokenUser2\", headerJwtUser);",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1562775483341,
+			"name": "Login User",
+			"description": "",
+			"collectionId": "091e4801-9d2f-ffd8-26b7-013809961ce2",
+			"responses": [],
+			"rawModeData": "{ \"username\":\"user\", \"password\":\"User1234\"}"
+		},
+		{
+			"id": "7f1aa6e7-c530-88f7-37ad-9368045ba8a7",
+			"name": "Hello Admin",
+			"description": "",
+			"collectionId": "091e4801-9d2f-ffd8-26b7-013809961ce2",
+			"method": "GET",
+			"headers": "Authorization: {{tokenUser}}",
+			"data": [],
+			"rawModeData": "",
+			"pathVariables": {},
+			"tests": "tests[\"Status is 403\"] = responseCode.code == \"403\"",
+			"preRequestScript": "",
+			"url": "http://localhost:8080/hello/admin",
+			"responses": [],
+			"pathVariableData": [],
+			"queryParams": [],
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "{{tokenUser}}"
+				}
+			],
+			"collection_id": "091e4801-9d2f-ffd8-26b7-013809961ce2",
+			"folder": "9689ada9-16c4-4407-116a-a9b694e5c99f"
+		},
+		{
+			"id": "884fba31-edaa-102a-c52d-ef4bbcf07021",
+			"headers": "Authorization: {{tokenUser}}\n",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "{{tokenUser}}",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/artistdetails/Vaucluse",
+			"folder": "2b94f9d5-982a-593f-14d6-399fe6c7cac2",
+			"queryParams": [],
+			"preRequestScript": "",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"tests": "tests[\"Status is 200\"] = responseCode.code == \"200\";",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1562845592508,
+			"name": "Find ArtistDetails By Department",
+			"description": "",
+			"collectionId": "091e4801-9d2f-ffd8-26b7-013809961ce2",
+			"responses": [],
+			"isFromCollection": true,
+			"collectionRequestId": "884fba31-edaa-102a-c52d-ef4bbcf07021",
+			"rawModeData": "{\n\t\"username\":\"ArtistA\",\n\t\"password\":\"ArtistA1\",\n\t\"email\":\"artista@email.fr\",\n\t\"city\":\"Lyon\",\n\t\"name\":\"NameA\",\n\t\"description\":\"Je suis un artiste complet !\",\n\t\"roles\":[\"ROLE_USER\"]\n}"
+		},
+		{
+			"id": "a773f1fe-0738-1de2-4f9d-8d68f2992502",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/users/",
+			"folder": "8494eb4c-77ce-13fe-84e1-7ab4a7da824a",
+			"queryParams": [],
+			"preRequestScript": "",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "PUT",
+			"data": [],
+			"dataMode": "raw",
+			"tests": "tests[\"Status is 200\"] = responseCode.code == \"200\"\n",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1562832669444,
+			"name": "Save New User",
+			"description": "",
+			"collectionId": "091e4801-9d2f-ffd8-26b7-013809961ce2",
+			"responses": [],
+			"isFromCollection": true,
+			"collectionRequestId": "a773f1fe-0738-1de2-4f9d-8d68f2992502",
+			"rawModeData": "{\n\t\"username\":\"UserU\",\n\t\"password\":\"UserU123\",\n\t\"email\":\"useru@email.fr\",\n\t\"city\":\"Paris\",\n\t\"roles\":[\"ROLE_USER\"]\n}"
+		},
+		{
+			"id": "b9e4e821-7e77-b509-1767-b14994f15ba1",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/artists/",
+			"folder": "676257fe-8da1-0c36-1c1c-a39eef8873ff",
+			"queryParams": [],
+			"preRequestScript": "",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "PUT",
+			"data": [],
+			"dataMode": "raw",
+			"tests": "tests[\"Status is 200\"] = responseCode.code == \"200\"\n",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1562775629085,
+			"name": "Save New Artist",
+			"description": "",
+			"collectionId": "091e4801-9d2f-ffd8-26b7-013809961ce2",
+			"responses": [],
+			"isFromCollection": true,
+			"collectionRequestId": "b9e4e821-7e77-b509-1767-b14994f15ba1",
+			"rawModeData": "{\n\t\"username\":\"ArtistA\",\n\t\"password\":\"ArtistA1\",\n\t\"email\":\"artista@email.fr\",\n\t\"city\":\"Lyon\",\n\t\"name\":\"NameA\",\n\t\"description\":\"Je suis un artiste complet !\",\n\t\"roles\":[\"ROLE_USER\"]\n}"
+		},
+		{
+			"id": "dc0bbc23-a93f-a194-c852-7d3233dcb85f",
+			"headers": "Authorization: {{tokenUser}}\n",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "{{tokenUser}}",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/users/",
+			"folder": "8494eb4c-77ce-13fe-84e1-7ab4a7da824a",
+			"queryParams": [],
+			"preRequestScript": "",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"tests": "tests[\"Status is 200\"] = responseCode.code == \"200\";",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1562830315037,
+			"name": "Find All Users",
+			"description": "",
+			"collectionId": "091e4801-9d2f-ffd8-26b7-013809961ce2",
+			"responses": [],
+			"isFromCollection": true,
+			"collectionRequestId": "dc0bbc23-a93f-a194-c852-7d3233dcb85f",
+			"rawModeData": "{\n\t\"username\":\"ArtistA\",\n\t\"password\":\"ArtistA1\",\n\t\"email\":\"artista@email.fr\",\n\t\"city\":\"Lyon\",\n\t\"name\":\"NameA\",\n\t\"description\":\"Je suis un artiste complet !\",\n\t\"roles\":[\"ROLE_USER\"]\n}"
+		},
+		{
+			"id": "ee8946cc-da34-2108-9428-01980af18e33",
+			"headers": "Authorization: {{tokenUser}}\n",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "{{tokenUser}}",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/artists/",
+			"folder": "676257fe-8da1-0c36-1c1c-a39eef8873ff",
+			"queryParams": [],
+			"preRequestScript": "",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"tests": "tests[\"Status is 200\"] = responseCode.code == \"200\";\n\n\n\npostman.getGlobalVariable(\"variable_key\");",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1562775618052,
+			"name": "Find All Artists",
+			"description": "",
+			"collectionId": "091e4801-9d2f-ffd8-26b7-013809961ce2",
+			"responses": [],
+			"isFromCollection": true,
+			"collectionRequestId": "ee8946cc-da34-2108-9428-01980af18e33",
+			"rawModeData": "{\n\t\"username\":\"ArtistA\",\n\t\"password\":\"ArtistA1\",\n\t\"email\":\"artista@email.fr\",\n\t\"city\":\"Lyon\",\n\t\"name\":\"NameA\",\n\t\"description\":\"Je suis un artiste complet !\",\n\t\"roles\":[\"ROLE_USER\"]\n}"
 		}
 	]
 }

@@ -40,7 +40,6 @@ public class UserController {
 	 */
 	@GetMapping("/{username}")
 	public User findByUsername(@PathVariable String username) {
-		System.out.println("findByUsername méthode");
 		User user = userService.findByUsername(username);
 		if(user == null) {
 			throw new NotFoundException("Username " + username + " not found in the database");
