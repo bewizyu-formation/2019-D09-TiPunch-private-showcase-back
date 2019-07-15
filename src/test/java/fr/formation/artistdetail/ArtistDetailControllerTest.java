@@ -71,7 +71,7 @@ public class ArtistDetailControllerTest {
 
         System.out.println("Autorization header : " + authorizationHeader);
 
-        this.artist = artistRepository.findByName("Artist 1");
+        this.artist = artistRepository.findByName("Artiste Test");
 
         this.artistDetailTest = new ArtistDetail();
         artistDetailTest.setArtist(artist);
@@ -104,18 +104,18 @@ public class ArtistDetailControllerTest {
 
     @Test
     public void putArtistDetail() throws Exception {
-        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(1);
+        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(5);
         mvc.perform(put("/artistdetails/")
                 .header("Authorization", this.authorizationHeader)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(this.artistDetailDtoTest)))
                 .andExpect(status().isOk());
-        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(2);
+        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(6);
     }
 
     @Test
     public void putArtistDetailWithArtistUsernameThatNotExist() throws Exception {
-        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(1);
+        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(5);
         this.artistDetailDtoTest.setUsername("Unknown username");
         mvc.perform(put("/artistdetails/")
                 .header("Authorization", this.authorizationHeader)
@@ -123,13 +123,13 @@ public class ArtistDetailControllerTest {
                 .content(objectMapper.writeValueAsString(this.artistDetailDtoTest)))
                 .andExpect(status().is(404))
                 .andExpect(content().json("{\"message\":\"Artist not found with username : " + this.artistDetailDtoTest.getUsername() + "\"}", false));
-        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(1);
+        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(5);
     }
 
     @Test
     public void findAllArtistDetailsByUserLocation() throws Exception {
         artistDetailRepository.save(artistDetailTest);
-        Assertions.assertThat(artistRepository.findAll()).hasSize(2);
+        Assertions.assertThat(artistRepository.findAll()).hasSize(6);
         getRequest("/artistdetails/Isère")
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(new ArtistDetail[]{artistDetailTest})));
@@ -139,7 +139,7 @@ public class ArtistDetailControllerTest {
     @Test
     public void findAllArtistDetailsByUserLocationWithBadDeprtmentName() throws Exception {
         artistDetailRepository.save(artistDetailTest);
-        Assertions.assertThat(artistRepository.findAll()).hasSize(2);
+        Assertions.assertThat(artistRepository.findAll()).hasSize(6);
         getRequest("/artistdetails/Isre")
                 .andExpect(status().is(404))
                 .andExpect(content().json("{\"message\":\"Department " + "Isre" + " not found in the departments list\"}"));
@@ -148,10 +148,11 @@ public class ArtistDetailControllerTest {
 
     @Test
     public void findAllArtistDetailsByLocalization() throws Exception {
-        ArtistDetail response = artistDetailRepository.findByArtist(artistRepository.findByName("Artiste 2"));
+
+        List<ArtistDetail> response = artistDetailRepository.findAllByDepartment(departmentRepository.findByName("Rhône"));
         getRequest("/artistdetails/localization?latitude=45.7605259&longitude=4.7909059")
                 .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(new ArrayList<ArtistDetail>(Arrays.asList(response)))));
+                .andExpect(content().json(objectMapper.writeValueAsString(new ArrayList<ArtistDetail>(response))));
     }
 
     @Test

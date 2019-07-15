@@ -12,6 +12,7 @@ import fr.formation.exception.LocalizationException;
 import fr.formation.exception.NotFoundException;
 import fr.formation.geo.model.Commune;
 import fr.formation.geo.services.CommuneService;
+import fr.formation.geo.services.impl.CommuneServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -33,7 +34,8 @@ public class ArtistDetailService {
     private DepartmentServiceImpl departmentServiceImpl;
 
     @Autowired
-    private CommuneService communeService;
+    private CommuneServiceImpl communeServiceImpl;
+
 
     @Autowired
     RestTemplate restTemplate;
@@ -145,7 +147,8 @@ public class ArtistDetailService {
      */
     public List<ArtistDetail> findAllByLocalization(String city) throws NotFoundException {
 
-        List<Commune> communes = objectMapper.convertValue(communeService.getCommunes(city), new TypeReference<List<Commune>>(){});
+        List<Commune> communes = objectMapper.convertValue(communeServiceImpl.getCommunes(city), new TypeReference<List<Commune>>(){});
+
 
         if(communes.size() == 0) {
             throw new NotFoundException("Commune " + city + " not found.");

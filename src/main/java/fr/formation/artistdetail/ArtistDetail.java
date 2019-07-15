@@ -21,7 +21,7 @@ public class ArtistDetail {
     @Column(name="photo")
     private String photo;
 
-    @Column(name="longDescription")
+    @Column(name="longDescription", length = 10000)
     private String longDescription;
 
     @Column(name="site")

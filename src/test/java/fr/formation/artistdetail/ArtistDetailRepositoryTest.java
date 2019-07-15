@@ -14,11 +14,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -26,15 +28,13 @@ import java.util.Set;
 import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
-@DataJpaTest
-@ComponentScan({"fr.formation.artist", "fr.formation.artistdetail", "fr.formation.department", "fr.formation.security"})
+@SpringBootTest
+@ComponentScan
+@Transactional
 public class ArtistDetailRepositoryTest {
 
     @Autowired
     private ArtistDetailRepository artistDetailRepository;
-
-    @Autowired
-    private EntityManager entityManager;
 
     @Autowired
     private ArtistRepository artistRepository;
@@ -62,16 +62,16 @@ public class ArtistDetailRepositoryTest {
 
     @Test
     public void saveTest() {
-        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(0);
+        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(5);
         artistDetailRepository.save(artistDetailTest);
-        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(1);
+        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(6);
     }
 
     @Test
     public void findAll() {
         artistDetailRepository.save(artistDetailTest);
         Assertions.assertThat(artistDetailRepository.findAll())
-                .hasSize(1)
+                .hasSize(6)
                 .extracting("longDescription", "phoneNumber")
                 .contains(Tuple.tuple(
                         this.artistDetailTest.getLongDescription(),
@@ -81,25 +81,21 @@ public class ArtistDetailRepositoryTest {
     @Test
     public void delete() {
         artistDetailRepository.save(artistDetailTest);
-        entityManager.flush();
-        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(1);
+        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(6);
         artistDetailRepository.delete(artistDetailTest);
-        entityManager.flush();
-        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(0);
+        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(5);
 
     }
 
     @Test
     public void update(){
         artistDetailRepository.save(this.artistDetailTest);
-        entityManager.flush();
-        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(1);
+        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(6);
 
         this.artistDetailTest.setSite("www.updatedwebsite.com");
 
         artistDetailRepository.save(this.artistDetailTest);
-        entityManager.flush();
-        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(1);
+        Assertions.assertThat(artistDetailRepository.findAll()).hasSize(6);
         Assertions.assertThat(artistDetailRepository.findById(this.artistDetailTest.getId()))
                 .get()
                 .extracting("site")
@@ -109,8 +105,7 @@ public class ArtistDetailRepositoryTest {
     @Test
     public void findAllByDepartment() {
         artistDetailRepository.save(this.artistDetailTest);
-        entityManager.flush();
-
+        System.out.println(artistDetailRepository.findAllByDepartment(departmentServiceImpl.findByName("Vaucluse")));
         Assertions.assertThat(artistDetailRepository.findAllByDepartment(departmentServiceImpl.findByName("Vaucluse")))
                 .hasSize(1)
                 .contains(artistDetailTest);
