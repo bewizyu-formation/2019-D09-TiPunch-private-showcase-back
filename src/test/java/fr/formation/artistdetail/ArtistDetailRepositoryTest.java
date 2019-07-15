@@ -50,7 +50,7 @@ public class ArtistDetailRepositoryTest {
         this.artist = artistRepository.findByName("Artist 1");
 
         this.artistDetailTest = new ArtistDetail();
-        artistDetailTest.setArtiste(artist);
+        artistDetailTest.setArtist(artist);
         artistDetailTest.setLongDescription("Description longue de l'artiste.");
         artistDetailTest.setSite("www.monsiteartisteperso.com");
         artistDetailTest.setPhoneNumber(0605040302);
@@ -116,4 +116,10 @@ public class ArtistDetailRepositoryTest {
                 .contains(artistDetailTest);
 
     }
+
+    @Test
+    public void 
+
+
+
 }

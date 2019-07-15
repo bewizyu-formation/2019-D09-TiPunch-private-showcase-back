@@ -51,7 +51,7 @@ public class ArtistDetailController {
      * Find artist details by artist name
      * @param artistName
      */
-    @GetMapping("/{artistName}")
+    @GetMapping("/artist/{artistName}")
     public ArtistDetail findByArtistName(@PathVariable String artistName) {
         Artist artist = artistService.findByName(artistName);
         if(artist == null) {

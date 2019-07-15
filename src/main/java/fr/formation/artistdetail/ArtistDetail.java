@@ -36,7 +36,7 @@ public class ArtistDetail {
     private int totalVotes;
 
     @OneToOne
-    private Artist artiste;
+    private Artist artist;
 
 
     @ManyToMany
@@ -51,7 +51,7 @@ public class ArtistDetail {
     @Override
     public String toString() {
         return "ArtistDetail{" +
-                "artiste=" + artiste +
+                "artiste=" + artist +
                 '}';
     }
 
@@ -111,12 +111,12 @@ public class ArtistDetail {
         this.totalVotes = totalVotes;
     }
 
-    public Artist getArtiste() {
-        return artiste;
+    public Artist getArtist() {
+        return artist;
     }
 
-    public void setArtiste(Artist artiste) {
-        this.artiste = artiste;
+    public void setArtist(Artist artist) {
+        this.artist = artist;
     }
 
     public Set<Department> getDepartments() {
