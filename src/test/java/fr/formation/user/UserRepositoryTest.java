@@ -20,7 +20,7 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-@ComponentScan
+@ComponentScan({"fr.formation.user", "fr.formation.security"})
 public class UserRepositoryTest {
 
     public final String[] ENGLISH_ERROR_MSGS = {"must not be null", "must be a well-formed email address", "size must be between " + UserConstants.MIN_LENGTH + " and " + UserConstants.USERNAME_MAX_LENGTH};

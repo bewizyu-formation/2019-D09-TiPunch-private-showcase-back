@@ -27,7 +27,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-@ComponentScan("fr.formation.artist, fr.formation.artistdetail, fr.formation.department")
+@ComponentScan({"fr.formation.artist", "fr.formation.artistdetail", "fr.formation.department", "fr.formation.security"})
 public class ArtistDetailRepositoryTest {
 
     @Autowired
@@ -116,10 +116,4 @@ public class ArtistDetailRepositoryTest {
                 .contains(artistDetailTest);
 
     }
-
-
-
-
-
-
 }
