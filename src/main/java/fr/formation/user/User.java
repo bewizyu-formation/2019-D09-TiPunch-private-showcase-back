@@ -30,6 +30,7 @@ public class User {
 
 
 	@Column(name = "password")
+	@JsonIgnore
 	@NotNull
 	private String password;
 
