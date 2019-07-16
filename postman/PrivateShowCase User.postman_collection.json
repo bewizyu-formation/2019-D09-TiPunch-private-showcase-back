@@ -163,54 +163,6 @@
 					"response": []
 				},
 				{
-					"name": "Update User",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "7f9f6ca2-f862-4d88-bfd5-02a58e989b1b",
-								"exec": [
-									"tests[\"Status is 200\"] = responseCode.code == \"200\";"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{tokenUser}}"
-							}
-						],
-						"url": {
-							"raw": "http://localhost:8080/users/update/?password=NewPass1&email=newmail@email.fr",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"users",
-								"update",
-								""
-							],
-							"query": [
-								{
-									"key": "password",
-									"value": "NewPass1"
-								},
-								{
-									"key": "email",
-									"value": "newmail@email.fr"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Find User By Username",
 					"event": [
 						{
@@ -242,6 +194,107 @@
 							"path": [
 								"users",
 								"artistetest"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7f9f6ca2-f862-4d88-bfd5-02a58e989b1b",
+								"exec": [
+									"tests[\"Status is 200\"] = responseCode.code == \"200\";"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{tokenUser}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"password\":\"NewPass1\",\n\t\"email\":\"newmail@email.fr\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/users/update/?password=NewPass1&email=newmail@email.fr",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"update",
+								""
+							],
+							"query": [
+								{
+									"key": "password",
+									"value": "NewPass1"
+								},
+								{
+									"key": "email",
+									"value": "newmail@email.fr"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check Password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "006d84a1-d272-4831-9be8-46e6f2461d38",
+								"exec": [
+									"tests[\"Status is 200\"] = responseCode.code == \"200\";"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{tokenUser}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/users/checkpassword?password=User1234",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"checkpassword"
+							],
+							"query": [
+								{
+									"key": "password",
+									"value": "User1234"
+								}
 							]
 						}
 					},

@@ -4,6 +4,7 @@ import fr.formation.exception.AlreadyExistsException;
 import fr.formation.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +18,9 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	/**
 	 * User signup
@@ -57,7 +61,18 @@ public class UserController {
 		return userService.findAll();
 	}
 
-	
+
+	@GetMapping("/checkpassword")
+	public PasswordDto testPassword(@RequestParam String password) {
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = userService.findByUsername(username);
+		if(user == null) {
+			throw new NotFoundException("Username " + username + " not found in the database");
+		}
+		return new PasswordDto(passwordEncoder.matches(password, user.getPassword()));
+	}
+
+
 	@PutMapping("/update")
 	public void updateUser(@RequestBody UserUpdateDto userUpdateDto) {
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -65,11 +80,21 @@ public class UserController {
 		if(user == null) {
 			throw new NotFoundException("Username " + username + " not found in the database");
 		}
-		user.setPassword(userUpdateDto.password);
+		user.setPassword(passwordEncoder.encode(userUpdateDto.password));
 		user.setEmail(userUpdateDto.email);
 
 		userService.update(user);
 	}
 
+	class PasswordDto {
+		public boolean passwordMatch = false;
+
+		public PasswordDto() {
+		}
+
+		public PasswordDto(boolean passwordMatch) {
+			this.passwordMatch = passwordMatch;
+		}
+	}
 
 }
