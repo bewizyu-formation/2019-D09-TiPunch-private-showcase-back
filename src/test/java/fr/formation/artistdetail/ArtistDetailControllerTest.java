@@ -130,9 +130,10 @@ public class ArtistDetailControllerTest {
     public void findAllArtistDetailsByUserLocation() throws Exception {
         artistDetailRepository.save(artistDetailTest);
         Assertions.assertThat(artistRepository.findAll()).hasSize(6);
+        List<ArtistDetail> artistDetailList = artistDetailRepository.findAllByDepartment(departmentRepository.findByName("Isère"));
         getRequest("/artistdetails/Isère")
                 .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(new ArtistDetail[]{artistDetailTest})));
+                .andExpect(content().json(objectMapper.writeValueAsString(artistDetailList)));
         artistDetailRepository.delete(artistDetailTest);
     }
 
