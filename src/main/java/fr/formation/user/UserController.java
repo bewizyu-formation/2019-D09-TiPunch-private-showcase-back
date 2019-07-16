@@ -58,7 +58,7 @@ public class UserController {
 	}
 
 
-	@PutMapping("/update")
+	/*@PutMapping("/update")
 	public void updateUser(@RequestParam String password, @RequestParam String email) {
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userService.findByUsername(username);
@@ -67,6 +67,19 @@ public class UserController {
 		}
 		user.setPassword(password);
 		user.setEmail(email);
+
+		userService.update(user);
+	}*/
+
+	@PutMapping("/update")
+	public void updateUser(@RequestBody UserUpdateDto userUpdateDto) {
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = userService.findByUsername(username);
+		if(user == null) {
+			throw new NotFoundException("Username " + username + " not found in the database");
+		}
+		user.setPassword(userUpdateDto.password);
+		user.setEmail(userUpdateDto.email);
 
 		userService.update(user);
 	}

@@ -132,7 +132,6 @@ public class ArtistDetailService {
             throw new NotFoundException("Code department " + departmentCode + " not found in the departments list");
         }
 
-        System.out.println("departement : " + department);
 
         return findAllByDepartment(department);
     }
