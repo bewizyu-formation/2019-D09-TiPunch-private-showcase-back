@@ -44,7 +44,6 @@ public class ArtistDetail {
     @JoinTable(name = "artistdetail_department",
         joinColumns = @JoinColumn(name="id_artistdetail", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(name = "id_department", referencedColumnName = "id"))
-    @JsonIgnore
     private Set<Department> departments;
 
     public ArtistDetail(){}
